@@ -12,15 +12,15 @@ function Navbar() {
   return (
     <>
       {/* NAVBAR */}
-      <div className="bg-white p-4 flex justify-between items-center shadow-md">
+      <div className="bg-white relative z-50 p-4 flex justify-between items-center shadow-md">
         {/* Logo app */}
         <img className="w-12" src={logolight} alt="logo-app" />
         {/* App name */}
-        <h1 className="text-xl font-semibold text-fuchsia-700">
+        <h1 className="text-xl font-semibold text-slate-700">
           Learning English
         </h1>
         {/* Button menu */}
-        <div className="flex items-center gap-4 text-fuchsia-700">
+        <div className="flex items-center gap-4 text-slate-700">
           <i
             onClick={toggleMenu}
             className={`text-4xl bx ${isMenuOpen ? "bx-x" : "bx-menu"}`}
@@ -30,7 +30,7 @@ function Navbar() {
 
       {/* DROPDOWN MENU */}
       <div
-        className={`relative -z-50 w-screen bg-blue-100 transition-transform duration-300 ease-in-out transform ${
+        className={`relative z-40 w-screen bg-blue-50 transition-transform duration-300 ease-in-out transform ${
           isMenuOpen ? "translate-y-0" : "-translate-y-[150%]"
         }`}
       >

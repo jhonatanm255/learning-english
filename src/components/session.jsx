@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "./firebaseConfig.js"; // Asegúrate de que la ruta sea correcta
+import { auth, storage } from "./firebaseConfig.js"; // Asegúrate de que la ruta sea correcta
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
 } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Importar funciones de Storage
 
 function Session() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [file, setFile] = useState(null); // Estado para el archivo de imagen
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [error, setError] = useState("");
 
@@ -19,6 +22,12 @@ function Session() {
 
   const toggleMode = () => {
     setIsLoginMode((prevMode) => !prevMode);
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]); // Guardar el archivo seleccionado
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -30,7 +39,26 @@ function Session() {
         await signInWithEmailAndPassword(auth, email, password);
         navigate("/email"); // Redirigir a la página 'email' después de iniciar sesión con correo/contraseña
       } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredential.user;
+
+        // Si hay un archivo de imagen, subirlo a Firebase Storage
+        if (file) {
+          const storageRef = ref(storage, `profilePictures/${user.uid}`);
+          await uploadBytes(storageRef, file); // Subir el archivo
+
+          // Obtener la URL de la imagen
+          const photoURL = await getDownloadURL(storageRef);
+
+          // Actualizar el perfil del usuario con la URL de la imagen
+          await updateProfile(user, { photoURL });
+        }
+
+        navigate("/email"); // Redirigir a la página 'email' después de crear la cuenta
       }
     } catch (err) {
       setError(err.message);
@@ -49,19 +77,19 @@ function Session() {
 
   const handlePasswordReset = async () => {
     if (!email) {
-      setError("Please enter your email to reset your password");
+      setError("Por favor, ingresa tu email para restablecer tu contraseña");
       return;
     }
     try {
       await sendPasswordResetEmail(auth, email);
-      alert("Password reset email sent!");
+      alert("¡Email para restablecer la contraseña enviado!");
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded">
+    <div className="max-w-md mx-auto -mt-40 mb-8 p-4   rounded">
       <h2 className="text-2xl font-bold mb-4">
         {isLoginMode ? "Iniciar Sesión" : "Crear Cuenta"}
       </h2>
@@ -93,6 +121,19 @@ function Session() {
             required
           />
         </div>
+        {!isLoginMode && ( // Mostrar campo de carga de imagen solo en modo de registro
+          <div className="mb-4">
+            <label htmlFor="profilePicture" className="block mb-1">
+              Foto de Perfil
+            </label>
+            <input
+              type="file"
+              id="profilePicture"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </div>
+        )}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded"

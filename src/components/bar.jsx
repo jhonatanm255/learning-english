@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { auth } from "./firebaseConfig"; // Verifica que la ruta sea correcta
 
-function Bar({ profilePicture }) {
+function Bar() {
+  const [profilePicture, setProfilePicture] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // Si el usuario tiene una foto de perfil, la establecemos en el estado
+        setProfilePicture(user.photoURL);
+      } else {
+        // Si no está autenticado, no mostramos ninguna imagen de perfil
+        setProfilePicture(null);
+      }
+    });
+
+    // Limpiar suscripción cuando el componente se desmonte
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div>
       <ul className="flex items-center justify-between p-4 bg-white shadow-top">
@@ -14,7 +32,7 @@ function Bar({ profilePicture }) {
           <i className="hover:bg-gray-300 p-1 px-2 rounded text-2xl text-slate-700 bx bx-book-bookmark"></i>
         </li>
         <li>
-          {/* Si el usuario está logueado muestra la imagen, si no, muestra el icono */}
+          {/* Muestra la imagen de perfil si está disponible, si no, muestra el ícono de usuario */}
           {profilePicture ? (
             <img
               className="w-8 h-8 rounded-full ml-2"
