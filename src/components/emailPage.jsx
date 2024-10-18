@@ -1,24 +1,34 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig";
 import { signOut } from "firebase/auth";
+import Chatbot from "./Chatbot";
+import { useState } from "react";
 
 function EmailPage() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSignOut = async () => {
-    await signOut(auth);
-    navigate("/"); // Redirigir a la página de inicio de sesión
+    setLoading(true);
+    setError("");
+
+    try {
+      await signOut(auth);
+      navigate("/"); 
+    } catch (err) {
+      setError("Error al cerrar sesión. Intenta nuevamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="text-center">
-      <h2 className="text-2xl">Iniciaste sesión con Correo/Contraseña</h2>
-      <button
-        onClick={handleSignOut}
-        className="bg-red-500 text-white p-2 rounded mt-4"
-      >
-        Cerrar Sesión
-      </button>
+      <Chatbot />
+  
+      {error && <p className="text-red-500 mt-2">{error}</p>}{" "}
+      {/* AQUI SE MUESTRA EL MENSAJE DE ERROR */}
     </div>
   );
 }

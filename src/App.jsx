@@ -10,19 +10,19 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col h-screen justify-between">
-        {/* Barra de navegación superior */}
+        {/* BARRA DE NAVEGACION SUPERIOR */}
         <Navbar />
 
-        {/* Contenido principal con flex-grow para ocupar el espacio disponible */}
+        {/* INICIO DE SESION*/}
         <div className="flex-grow">
           <Routes>
-            <Route path="/" element={<Session />} />
+            <Route path="/login" element={<Session />} />
             <Route path="/google" element={<GooglePage />} />
             <Route path="/email" element={<EmailPage />} />
           </Routes>
         </div>
 
-        {/* Barra de navegación inferior */}
+        {/* BARRA DE NAVEGACION INFERIOR */}
         <Bar />
       </div>
     </Router>

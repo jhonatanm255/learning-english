@@ -1,28 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig";
 import { signOut } from "firebase/auth";
-
+import Chatbot from "./Chatbot";
+import { useState } from "react";
 
 function GooglePage() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSignOut = async () => {
-    await signOut(auth);
-    navigate("/"); // Redirigir a la página de inicio de sesión
+    setLoading(true);
+    try {
+      await signOut(auth);
+      navigate("/"); // Redirigir a la página de inicio de sesión
+    } catch (err) {
+      setError("Error al cerrar sesión. Intenta nuevamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <>
-      <div className="text-center">
-        <h2 className="text-2xl">Iniciaste sesión con Google</h2>
-        <button
-          onClick={handleSignOut}
-          className="bg-red-500 text-white p-2 rounded mt-4"
-        >
-          Cerrar Sesión
-        </button>
-      </div>
-    </>
+    <div className="flex flex-col items-center">
+      <Chatbot />
+      
+      {error && <p className="text-red-500 mt-2">{error}</p>}
+    </div>
   );
 }
 

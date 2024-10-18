@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, storage } from "./firebaseConfig.js"; // Asegúrate de que la ruta sea correcta
+import { auth, storage } from "./firebaseConfig.js";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -9,16 +9,17 @@ import {
   GoogleAuthProvider,
   updateProfile,
 } from "firebase/auth";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Importar funciones de Storage
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function Session() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [file, setFile] = useState(null); // Estado para el archivo de imagen
+  const [file, setFile] = useState(null);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Para la navegación
+  const navigate = useNavigate();
 
   const toggleMode = () => {
     setIsLoginMode((prevMode) => !prevMode);
@@ -26,18 +27,28 @@ function Session() {
 
   const handleFileChange = (e) => {
     if (e.target.files[0]) {
-      setFile(e.target.files[0]); // Guardar el archivo seleccionado
+      setFile(e.target.files[0]);
+    }
+  };
+    // FOTO DE PERFIL
+  const uploadProfilePicture = async (user) => {
+    if (file) {
+      const storageRef = ref(storage, `profilePictures/${user.uid}`);
+      await uploadBytes(storageRef, file);
+      const photoURL = await getDownloadURL(storageRef);
+      await updateProfile(user, { photoURL });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       if (isLoginMode) {
         await signInWithEmailAndPassword(auth, email, password);
-        navigate("/email"); // Redirigir a la página 'email' después de iniciar sesión con correo/contraseña
+        navigate("/email");
       } else {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
@@ -45,23 +56,17 @@ function Session() {
           password
         );
         const user = userCredential.user;
-
-        // Si hay un archivo de imagen, subirlo a Firebase Storage
-        if (file) {
-          const storageRef = ref(storage, `profilePictures/${user.uid}`);
-          await uploadBytes(storageRef, file); // Subir el archivo
-
-          // Obtener la URL de la imagen
-          const photoURL = await getDownloadURL(storageRef);
-
-          // Actualizar el perfil del usuario con la URL de la imagen
-          await updateProfile(user, { photoURL });
-        }
-
-        navigate("/email"); // Redirigir a la página 'email' después de crear la cuenta
+        await uploadProfilePicture(user); 
+        navigate("/email");
       }
     } catch (err) {
-      setError(err.message);
+      setError(
+        err.code === "auth/user-not-found"
+          ? "Usuario no encontrado."
+          : err.message
+      );
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -69,7 +74,7 @@ function Session() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      navigate("/google"); // Redirigir a la página 'google' después de iniciar sesión con Google
+      navigate("/google");
     } catch (err) {
       setError(err.message);
     }
@@ -89,7 +94,7 @@ function Session() {
   };
 
   return (
-    <div className="max-w-md mx-auto -mt-40 mb-8 p-4   rounded">
+    <div className="max-w-md mx-auto mt-16 mb-8 p-4 rounded">
       <h2 className="text-2xl font-bold mb-4">
         {isLoginMode ? "Iniciar Sesión" : "Crear Cuenta"}
       </h2>
@@ -121,7 +126,7 @@ function Session() {
             required
           />
         </div>
-        {!isLoginMode && ( // Mostrar campo de carga de imagen solo en modo de registro
+        {!isLoginMode && (
           <div className="mb-4">
             <label htmlFor="profilePicture" className="block mb-1">
               Foto de Perfil
@@ -136,9 +141,16 @@ function Session() {
         )}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded"
+          className={`w-full ${
+            loading ? "bg-gray-400" : "bg-blue-500"
+          } text-white p-2 rounded`}
+          disabled={loading} 
         >
-          {isLoginMode ? "Iniciar Sesión" : "Crear Cuenta"}
+          {loading
+            ? "Cargando..."
+            : isLoginMode
+            ? "Iniciar Sesión"
+            : "Crear Cuenta"}
         </button>
       </form>
       <button

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { auth } from "./firebaseConfig"; // Verifica que la ruta sea correcta
+import { auth } from "./firebaseConfig"; 
 
 function Bar() {
   const [profilePicture, setProfilePicture] = useState(null);
@@ -7,15 +7,12 @@ function Bar() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        // Si el usuario tiene una foto de perfil, la establecemos en el estado
         setProfilePicture(user.photoURL);
       } else {
-        // Si no está autenticado, no mostramos ninguna imagen de perfil
         setProfilePicture(null);
       }
     });
 
-    // Limpiar suscripción cuando el componente se desmonte
     return () => unsubscribe();
   }, []);
 
