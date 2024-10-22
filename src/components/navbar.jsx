@@ -44,7 +44,7 @@ function Navbar() {
 
       {/* DROPDOWN MENU */}
       <div
-        className={`absolute z-40 w-screen bg-blue-50 transition-transform duration-300 ease-in-out transform ${
+        className={`absolute z-40 w-screen bg-blue-50 transition-transform duration-300 ease-in-out transform shadow-md ${
           isMenuOpen ? "translate-y-20" : "-translate-y-[150%]"
         }`}
       >

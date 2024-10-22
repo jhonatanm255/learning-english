@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import BackButton from "./backbutton";
 
 function Chatbot() {
   const [input, setInput] = useState("");
@@ -16,7 +17,7 @@ function Chatbot() {
 
     try {
       const response = await axios.post(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBw9C-TmXENnreA-fawCpCg3nH_Ab41Q2U", // Asegúrate de usar tu clave API correcta aquí
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBw9C-TmXENnreA-fawCpCg3nH_Ab41Q2U",
         {
           contents: [
             {
@@ -34,8 +35,6 @@ function Chatbot() {
           },
         }
       );
-
-      console.log(response.data); // Ver la respuesta completa para asegurarnos de que es la correcta
 
       const botMessage =
         response.data.candidates[0].content.parts[0].text ||
@@ -59,8 +58,11 @@ function Chatbot() {
 
   return (
     <div className="w-full h-full mx-auto p-4 bg-white shadow-md rounded">
-      <h2 className="text-2xl font-bold mb-4">Chatbot Learning English</h2>
-      <div className="chat-window h-[540px] max-h-[540px] overflow-y-auto mb-4 p-2 border border-gray-300 rounded bg-gray-50">
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-bold mb-4">Chatbot Learning English</h2>
+        <BackButton />
+      </div>
+      <div className="chat-window h-[540px] max-h-[540px] lg:h-[315px] overflow-y-auto mb-4 p-2 border border-gray-300 rounded bg-gray-50">
         {messages.map((msg, index) => (
           <div
             key={index}

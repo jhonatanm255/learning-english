@@ -29,7 +29,7 @@ function Bar() {
           <i className="hover:bg-gray-300 p-1 px-2 rounded text-2xl text-slate-700 bx bx-book-bookmark"></i>
         </li>
         <li>
-          {/* Muestra la imagen de perfil si está disponible, si no, muestra el ícono de usuario */}
+          {/* IMAGEN DE PERFIL DE LA SESION O ICONO DE USER */}
           {profilePicture ? (
             <img
               className="w-8 h-8 rounded-full ml-2"

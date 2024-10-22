@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig";
 import { signOut } from "firebase/auth";
-import Chatbot from "./Chatbot";
 import { useState } from "react";
+import Main from "./main";
 
 function EmailPage() {
   const navigate = useNavigate();
@@ -25,8 +25,7 @@ function EmailPage() {
 
   return (
     <div className="text-center">
-      <Chatbot />
-  
+      <Main />
       {error && <p className="text-red-500 mt-2">{error}</p>}{" "}
       {/* AQUI SE MUESTRA EL MENSAJE DE ERROR */}
     </div>

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebaseConfig";
 import { signOut } from "firebase/auth";
-import Chatbot from "./Chatbot";
 import { useState } from "react";
+import Main from "./main";
 
 function GooglePage() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function GooglePage() {
     setLoading(true);
     try {
       await signOut(auth);
-      navigate("/"); // Redirigir a la página de inicio de sesión
+      navigate("/");
     } catch (err) {
       setError("Error al cerrar sesión. Intenta nuevamente.");
     } finally {
@@ -23,7 +23,7 @@ function GooglePage() {
 
   return (
     <div className="flex flex-col items-center">
-      <Chatbot />
+      <Main />
       
       {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
