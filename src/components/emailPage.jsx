@@ -1,33 +1,36 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "./firebaseConfig";
-import { signOut } from "firebase/auth";
-import { useState } from "react";
+import { auth } from "./firebaseConfig"; // Importa la configuración de Firebase
 import Main from "./main";
 
 function EmailPage() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
-  const handleSignOut = async () => {
-    setLoading(true);
-    setError("");
+  // Verificación de la autenticación del usuario
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        setLoading(false);
+      } else {
+        navigate("/login"); // Redirige al formulario de login si no está autenticado
+      }
+    });
 
-    try {
-      await signOut(auth);
-      navigate("/"); 
-    } catch (err) {
-      setError("Error al cerrar sesión. Intenta nuevamente.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    // Limpia el listener cuando el componente se desmonta
+    return () => unsubscribe();
+  }, [navigate]);
+
+  if (loading) {
+    return <p>Cargando...</p>; // O un spinner si prefieres
+  }
 
   return (
     <div className="text-center">
-      <Main />
-      {error && <p className="text-red-500 mt-2">{error}</p>}{" "}
-      {/* AQUI SE MUESTRA EL MENSAJE DE ERROR */}
+      {user ? <Main /> : <p>Redirigiendo...</p>}{" "}
+      {/* Solo muestra el contenido si el usuario está autenticado */}
     </div>
   );
 }

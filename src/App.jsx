@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./components/navbar";
-import Bar from "./components/Bar";
+import Bar from "./components/bar";
 import Session from "./components/session";
 import GooglePage from "./components/googlePage";
 import EmailPage from "./components/emailPage";
