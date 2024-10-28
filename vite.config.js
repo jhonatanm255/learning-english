@@ -4,5 +4,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "https://jhonatanm255.github.io/learning-english/"
+  // Puedes agregar configuraciones adicionales aquí si es necesario
 });
