@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, storage } from "./firebaseConfig.js";
+import { FcGoogle } from "react-icons/fc";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -95,13 +96,13 @@ function Session() {
 
   return (
     <div className="max-w-md mx-auto mt-16 mb-8 p-4 rounded">
-      <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-2xl font-bold mb-4 text-gray-700">
         {isLoginMode ? "Iniciar Sesión" : "Crear Cuenta"}
       </h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="email" className="block mb-1">
+          <label htmlFor="email" className="block mb-1 text-gray-500">
             Email
           </label>
           <input
@@ -114,8 +115,8 @@ function Session() {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="password" className="block mb-1">
-            Contraseña
+          <label htmlFor="password" className="block mb-1 text-gray-500">
+            Password
           </label>
           <input
             type="password"
@@ -144,7 +145,7 @@ function Session() {
           className={`w-full ${
             loading ? "bg-gray-400" : "bg-blue-500"
           } text-white p-2 rounded`}
-          disabled={loading} 
+          disabled={loading}
         >
           {loading
             ? "Cargando..."
@@ -155,15 +156,24 @@ function Session() {
       </form>
       <button
         onClick={handleGoogleSignIn}
-        className="w-full bg-red-500 text-white p-2 rounded mt-4"
+        className="flex items-center justify-center hover:bg-gray-200 w-full border border-gray-300 text-gray-500 p-2 rounded mt-4"
       >
+        <FcGoogle className="text-2xl mr-2" />
         Iniciar sesión con Google
       </button>
-      <button onClick={toggleMode} className="w-full text-blue-500 mt-4">
-        {isLoginMode
-          ? "¿No tienes cuenta? Crear una cuenta"
-          : "¿Ya tienes cuenta? Iniciar sesión"}
+      <button onClick={toggleMode} className="w-full mt-4 text-blue-500">
+        {isLoginMode ? (
+          <>
+            <span className="text-gray-500">¿No tienes cuenta?</span> Crear una
+          </>
+        ) : (
+          <>
+            <span className="text-gray-500">¿Ya tienes cuenta?</span> Iniciar
+            sesión
+          </>
+        )}
       </button>
+
       <button
         onClick={handlePasswordReset}
         className="w-full text-blue-500 mt-2"
