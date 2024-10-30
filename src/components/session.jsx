@@ -143,7 +143,7 @@ function Session() {
         <button
           type="submit"
           className={`w-full ${
-            loading ? "bg-gray-400" : "bg-blue-500"
+            loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
           } text-white p-2 rounded`}
           disabled={loading}
         >
@@ -164,12 +164,17 @@ function Session() {
       <button onClick={toggleMode} className="w-full mt-4 text-blue-500">
         {isLoginMode ? (
           <>
-            <span className="text-gray-500">¿No tienes cuenta?</span> Crear una
+            <span className="text-gray-500">¿No tienes cuenta?</span>{" "}
+            <span className="hover:border-b hover:border-blue-500">
+              Crea una
+            </span>
           </>
         ) : (
           <>
-            <span className="text-gray-500">¿Ya tienes cuenta?</span> Iniciar
-            sesión
+            <span className="text-gray-500">¿Ya tienes cuenta?</span>{" "}
+            <span className="hover:border-b hover:border-blue-500">
+              Iniciar sesión
+            </span>
           </>
         )}
       </button>
@@ -178,7 +183,9 @@ function Session() {
         onClick={handlePasswordReset}
         className="w-full text-blue-500 mt-2"
       >
-        Recuperar Contraseña
+        <span className="hover:border-b hover:border-blue-500">
+          Recuperar Contraseña
+        </span>
       </button>
     </div>
   );

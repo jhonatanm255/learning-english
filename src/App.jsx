@@ -14,7 +14,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./components/AuthContext"; // Asegúrate de tener AuthContext configurado
-import PrivateRoute from "./components/privateRoute"; // Rutas privadas
+import PrivateRoute from "./components/PrivateRoute"; // Rutas privadas
 
 function App() {
   return (

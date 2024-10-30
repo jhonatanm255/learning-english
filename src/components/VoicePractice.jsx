@@ -2,14 +2,22 @@ import React, { useState, useEffect } from "react";
 import BackButton from "./backbutton";
 import { BiCategoryAlt } from "react-icons/bi";
 
-// Cargar las palabras desde el archivo JSON
 const fetchWords = async () => {
-  const response = await fetch("/words.json"); // Asegúrate de que la ruta sea correcta
+  const response = await fetch("/words.json");
   if (!response.ok) {
     throw new Error("Network response was not ok " + response.statusText);
   }
   const data = await response.json();
   return data;
+};
+
+// Función para medir la similitud de cadenas (simplificada)
+const similarity = (s1, s2) => {
+  let matches = 0;
+  for (let i = 0; i < Math.min(s1.length, s2.length); i++) {
+    if (s1[i] === s2[i]) matches++;
+  }
+  return matches / Math.max(s1.length, s2.length);
 };
 
 function VoicePractice() {
@@ -23,7 +31,7 @@ function VoicePractice() {
     const loadWords = async () => {
       const words = await fetchWords();
       setWordsByCategory(words);
-      setCurrentWordIndex(0); // Inicializamos el índice en 0 para empezar por la primera palabra
+      setCurrentWordIndex(0);
     };
     loadWords();
   }, []);
@@ -31,22 +39,11 @@ function VoicePractice() {
   const speakText = (text) => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "en-US";
-    utterance.rate = 0.7;
+    utterance.rate = 1;
     utterance.pitch = 1;
-
-    const voices = window.speechSynthesis.getVoices();
-    const selectedVoice =
-      voices.find((voice) => voice.name === "Google US English") ||
-      voices.find((voice) => voice.name === "Microsoft Zira") ||
-      voices.find((voice) => voice.name.includes("US English"));
-
-    if (selectedVoice) {
-      utterance.voice = selectedVoice;
-    }
-
     setTimeout(() => {
       speechSynthesis.speak(utterance);
-    }, 300); // Agrega un retraso de 300ms para mejorar la pronunciación
+    }, 300);
   };
 
   const startRecognition = (callback) => {
@@ -85,11 +82,15 @@ function VoicePractice() {
         .trim()
         .toLowerCase();
 
-      if (normalizedResult === normalizedPhrase) {
+      // Usa la función de similitud para permitir flexibilidad
+      const similarityScore = similarity(normalizedResult, normalizedPhrase);
+
+      if (similarityScore >= 0.8) {
+        // Acepta frases similares en un 80% o más
         setFeedback("¡Correcto!");
-        setCurrentWordIndex((prevIndex) => prevIndex + 1); // Avanza secuencialmente
+        setCurrentWordIndex((prevIndex) => prevIndex + 1);
       } else {
-        setFeedback("Inténtalo de nuevo.");
+        setFeedback("Casi! Inténtalo de nuevo.");
       }
     });
   };
@@ -97,7 +98,7 @@ function VoicePractice() {
   const handleCategoryChange = (event) => {
     const newCategory = event.target.value;
     setSelectedCategory(newCategory);
-    setCurrentWordIndex(0); // Reinicia el índice al cambiar de categoría
+    setCurrentWordIndex(0);
   };
 
   return (
@@ -140,7 +141,6 @@ function VoicePractice() {
         onClick={handleSpeak}
         className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
       >
-        {" "}
         Escuchar Frase
       </button>
       <button
