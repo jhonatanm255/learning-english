@@ -7,6 +7,7 @@ import EmailPage from "./components/emailPage";
 import Main from "./components/main";
 import Chatbot from "./components/Chatbot";
 import VoicePractice from "./components/VoicePractice";
+import Translator from "./components/traductor";
 import {
   BrowserRouter as Router,
   Routes,
@@ -41,6 +42,10 @@ function App() {
               <Route
                 path="/voice"
                 element={<PrivateRoute component={<VoicePractice />} />}
+              />
+              <Route
+                path="/translator"
+                element={<PrivateRoute component={<Translator />} />}
               />
             </Routes>
           </div>

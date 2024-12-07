@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PiTranslateFill } from "react-icons/pi";
 
 function Main() {
   return (
@@ -29,20 +30,22 @@ function Main() {
           </div>
         </Link>
 
-        {/* OTROS ELEMENTOS */}
-        <div className="bg-yellow-50 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md">
-          <i className="text-yellow-400 text-5xl flex justify-center py-8 bx bxs-bot"></i>
-          <p className="text-slate-800 font-semibold text-center ml-8 text-lg">
-            ...
-          </p>
-        </div>
+        {/* TRANSLATE */}
+        <Link className="w-full" to="/translator">
+          <div className="bg-yellow-50 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md">
+            <PiTranslateFill className="text-yellow-400 text-5xl flex justify-center" />
+            <p className="text-slate-800 font-semibold text-center ml-8 text-lg">
+              Utiliza Nuestro Traductor
+            </p>
+          </div>
+        </Link>
 
-        <div className="bg-red-50 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md">
+        {/* <div className="bg-red-50 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md">
           <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-bot"></i>
           <p className="text-slate-800 font-semibold text-center ml-8 text-lg">
             ...
           </p>
-        </div>
+        </div> */}
       </div>
     </>
   );
