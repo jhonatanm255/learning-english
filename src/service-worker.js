@@ -63,6 +63,7 @@ const CACHE_URLS = [
   "/manifest.webmanifest",
 ];
 
+// Instalar y cachear los archivos
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -71,8 +72,8 @@ self.addEventListener("install", (event) => {
   );
 });
 
+// Activar el Service Worker y borrar cachés antiguos
 self.addEventListener("activate", (event) => {
-  // Eliminar cachés antiguos si la versión del cache ha cambiado
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -84,10 +85,10 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
-  self.clients.claim(); // Toma el control inmediatamente
+  self.clients.claim(); // Toma control inmediatamente
 });
 
-// Manejo de solicitudes de red con cache-first
+// Manejar solicitudes de red con cache-first
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
@@ -106,21 +107,21 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-// Escuchar mensajes del frontend (enviar la nueva versión)
+// Escuchar el mensaje de 'SKIP_WAITING' desde el frontend
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting(); // Activar el nuevo Service Worker
+    self.skipWaiting(); // Forzar el Service Worker a tomar el control
   }
 });
 
-// Notificar al frontend cuando la nueva versión esté lista
+// Notificar cuando el Service Worker esté listo para ser usado
 self.addEventListener("install", () => {
   if (self.skipWaiting) {
-    self.skipWaiting(); // Deja que el nuevo service worker se active
+    self.skipWaiting();
   }
 });
 
-// Enviar mensaje de actualización disponible al frontend
+// Informar al frontend que la nueva versión está lista para ser usada
 self.addEventListener("activate", () => {
   self.clients.matchAll().then((clients) => {
     clients.forEach((client) => client.postMessage({ type: "UPDATE_READY" }));

@@ -59,16 +59,16 @@ export const UpdateProvider = ({ children }) => {
   useEffect(() => {
     const handleUpdateReady = (event) => {
       if (event.data && event.data.type === "UPDATE_READY") {
-        // Aquí se obtiene la nueva versión desde el manifest
         fetch("/manifest.webmanifest")
           .then((res) => res.json())
           .then((manifest) => {
-            setNewVersion(manifest.version); // Asignar la nueva versión
-            setUpdateAvailable(true); // Hacer visible el modal de notificación
+            setNewVersion(manifest.version); // Obtener la nueva versión
+            setUpdateAvailable(true); // Hacer visible el modal
           });
       }
     };
 
+    // Escuchar los mensajes del Service Worker
     navigator.serviceWorker.addEventListener("message", handleUpdateReady);
 
     return () => {
@@ -77,14 +77,13 @@ export const UpdateProvider = ({ children }) => {
   }, []);
 
   const updateApp = () => {
-    // Al actualizar, le decimos al service worker que se salte la espera
     if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: "SKIP_WAITING" });
     }
   };
 
   const dismissUpdate = () => {
-    setUpdateAvailable(false); // Cerrar el modal si el usuario no quiere actualizar
+    setUpdateAvailable(false); // Ocultar el modal si el usuario no quiere actualizar
   };
 
   return (
@@ -97,4 +96,3 @@ export const UpdateProvider = ({ children }) => {
 };
 
 export const useUpdate = () => useContext(UpdateContext);
-

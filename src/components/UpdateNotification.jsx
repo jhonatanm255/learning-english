@@ -41,14 +41,13 @@
 
 
 
-
 import React from "react";
 import { useUpdate } from "../contexts/UpdateContext";
 
 const UpdateNotification = () => {
   const { updateAvailable, newVersion, updateApp, dismissUpdate } = useUpdate();
 
-  if (!updateAvailable) return null;
+  if (!updateAvailable) return null; // No mostrar nada si no hay actualización
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
