@@ -8,13 +8,21 @@ function UpdateNotification() {
   if (!updateAvailable) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-blue-600 text-white p-4 text-center">
-      <h2 className="font-semibold">¡Nueva versión disponible!</h2>
-      <p>Hay una nueva actualización disponible. ¿Quieres actualizar ahora?</p>
+    <div className="fixed bottom-0 left-0 right-0 bg-slate-800 text-white p-4 text-center">
+      <div className="flex gap-2 justify-center">
+        <h2 className="font-semibold text-lg text-gray-200">¡Nueva versión disponible!</h2>
+        <p className="text-center text-gray-100 text-lg">
+          <strong>{__APP_VERSION__}</strong>
+        </p>
+      </div>
+
+      <p className="text-gray-300">
+        Hay una nueva actualización disponible. ¿Quieres actualizar ahora?
+      </p>
       <div className="mt-2">
         <button
           onClick={triggerUpdate}
-          className="bg-green-500 text-white px-4 py-2 rounded-md mr-2"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
         >
           Actualizar ahora
         </button>

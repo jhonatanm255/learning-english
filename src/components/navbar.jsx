@@ -280,19 +280,27 @@ function Navbar() {
               </ul>
 
               {/* SOCIAL NETWORK */}
-              <ul>
-                <li className="flex justify-center gap-4 text-3xl text-gray-500">
-                  <a href="#">
-                    <i class="bx bxl-facebook-circle"></i>
-                  </a>
-                  <a href="https://www.linkedin.com/in/jhonatan-mu%C3%B1oz-1aa8bb28b/">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
-                  <a href="https://github.com/jhonatanm255 ">
-                    <i class="bx bxl-github"></i>
-                  </a>
-                </li>
-              </ul>
+              <div>
+                <div>
+                  <ul>
+                    <li className="flex justify-center gap-4 text-3xl text-gray-500">
+                      <a href="#">
+                        <i class="bx bxl-facebook-circle"></i>
+                      </a>
+                      <a href="https://www.linkedin.com/in/jhonatan-mu%C3%B1oz-1aa8bb28b/">
+                        <i class="bx bxl-linkedin"></i>
+                      </a>
+                      <a href="https://github.com/jhonatanm255 ">
+                        <i class="bx bxl-github"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <p className="text-center mt-4 text-gray-400 text-lg">
+                  Versión: <strong>{__APP_VERSION__}</strong>
+                </p>
+              </div>
             </div>
           </div>
         )}
