@@ -48,7 +48,6 @@
 // export const useUpdate = () => useContext(UpdateContext);
 
 
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export const UpdateContext = createContext();
@@ -56,22 +55,21 @@ export const UpdateContext = createContext();
 export const UpdateProvider = ({ children }) => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [newVersion, setNewVersion] = useState(""); // Para almacenar la versión nueva
+  const [newWorker, setNewWorker] = useState(null); // Para almacenar el service worker
 
   useEffect(() => {
-    let newWorker;
-
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.addEventListener("controllerchange", () => {
-        window.location.reload();
+        // Esto ya no recarga la página automáticamente
       });
 
       navigator.serviceWorker.ready.then((registration) => {
         registration.addEventListener("updatefound", () => {
-          newWorker = registration.installing;
+          const worker = registration.installing;
 
-          newWorker.addEventListener("statechange", () => {
+          worker.addEventListener("statechange", () => {
             if (
-              newWorker.state === "installed" &&
+              worker.state === "installed" &&
               navigator.serviceWorker.controller
             ) {
               // Obtén la nueva versión desde package.json
@@ -80,6 +78,7 @@ export const UpdateProvider = ({ children }) => {
                 .then((manifest) => {
                   setNewVersion(manifest.version);
                   setUpdateAvailable(true);
+                  setNewWorker(worker); // Guardamos el worker para usarlo luego
                 });
             }
           });
