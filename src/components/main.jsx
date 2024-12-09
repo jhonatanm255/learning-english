@@ -40,12 +40,12 @@ function Main() {
           </div>
         </Link>
 
-        {/* <div className="bg-red-50 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md">
+        <div className="bg-red-50 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md">
           <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-bot"></i>
           <p className="text-slate-800 font-semibold text-center ml-8 text-lg">
             ...
           </p>
-        </div> */}
+        </div>
       </div>
     </>
   );
