@@ -63,7 +63,6 @@ const CACHE_URLS = [
   "/manifest.webmanifest",
 ];
 
-// Instalación del service worker
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -72,8 +71,8 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activación del service worker
 self.addEventListener("activate", (event) => {
+  // Eliminar cachés antiguos si la versión del cache ha cambiado
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -85,7 +84,7 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
-  self.clients.claim(); // Controla las páginas inmediatamente
+  self.clients.claim(); // Toma el control inmediatamente
 });
 
 // Manejo de solicitudes de red con cache-first
@@ -107,24 +106,23 @@ self.addEventListener("fetch", (event) => {
   );
 });
 
-// Escuchar mensajes del frontend
+// Escuchar mensajes del frontend (enviar la nueva versión)
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting(); // Forzar la activación de la nueva versión
+    self.skipWaiting(); // Activar el nuevo Service Worker
   }
 });
 
-// Notificar al frontend cuando una nueva versión esté lista
-self.addEventListener("install", (event) => {
+// Notificar al frontend cuando la nueva versión esté lista
+self.addEventListener("install", () => {
   if (self.skipWaiting) {
-    self.skipWaiting(); // Deja que el nuevo service worker se active, pero sin recargar
+    self.skipWaiting(); // Deja que el nuevo service worker se active
   }
 });
 
-// Enviar mensaje al frontend para notificar que hay una nueva versión
+// Enviar mensaje de actualización disponible al frontend
 self.addEventListener("activate", () => {
   self.clients.matchAll().then((clients) => {
     clients.forEach((client) => client.postMessage({ type: "UPDATE_READY" }));
   });
 });
-

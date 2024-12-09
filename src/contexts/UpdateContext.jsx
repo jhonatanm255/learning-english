@@ -54,47 +54,37 @@ export const UpdateContext = createContext();
 
 export const UpdateProvider = ({ children }) => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [newVersion, setNewVersion] = useState(""); // Para almacenar la versión nueva
-  const [newWorker, setNewWorker] = useState(null); // Para almacenar el service worker
+  const [newVersion, setNewVersion] = useState(""); // Para almacenar la nueva versión
 
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
-        // Esto ya no recarga la página automáticamente
-      });
-
-      navigator.serviceWorker.ready.then((registration) => {
-        registration.addEventListener("updatefound", () => {
-          const worker = registration.installing;
-
-          worker.addEventListener("statechange", () => {
-            if (
-              worker.state === "installed" &&
-              navigator.serviceWorker.controller
-            ) {
-              // Obtén la nueva versión desde package.json
-              fetch("/manifest.json")
-                .then((res) => res.json())
-                .then((manifest) => {
-                  setNewVersion(manifest.version);
-                  setUpdateAvailable(true);
-                  setNewWorker(worker); // Guardamos el worker para usarlo luego
-                });
-            }
+    const handleUpdateReady = (event) => {
+      if (event.data && event.data.type === "UPDATE_READY") {
+        // Aquí se obtiene la nueva versión desde el manifest
+        fetch("/manifest.webmanifest")
+          .then((res) => res.json())
+          .then((manifest) => {
+            setNewVersion(manifest.version); // Asignar la nueva versión
+            setUpdateAvailable(true); // Hacer visible el modal de notificación
           });
-        });
-      });
-    }
+      }
+    };
+
+    navigator.serviceWorker.addEventListener("message", handleUpdateReady);
+
+    return () => {
+      navigator.serviceWorker.removeEventListener("message", handleUpdateReady);
+    };
   }, []);
 
   const updateApp = () => {
-    if (newWorker) {
-      newWorker.postMessage({ type: "SKIP_WAITING" });
+    // Al actualizar, le decimos al service worker que se salte la espera
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: "SKIP_WAITING" });
     }
   };
 
   const dismissUpdate = () => {
-    setUpdateAvailable(false);
+    setUpdateAvailable(false); // Cerrar el modal si el usuario no quiere actualizar
   };
 
   return (
@@ -107,3 +97,4 @@ export const UpdateProvider = ({ children }) => {
 };
 
 export const useUpdate = () => useContext(UpdateContext);
+

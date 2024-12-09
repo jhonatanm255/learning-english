@@ -42,30 +42,13 @@
 
 
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useUpdate } from "../contexts/UpdateContext";
 
 const UpdateNotification = () => {
   const { updateAvailable, newVersion, updateApp, dismissUpdate } = useUpdate();
 
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    const handleUpdateReady = (event) => {
-      if (event.data && event.data.type === "UPDATE_READY") {
-        setShowModal(true); // Mostrar el modal cuando haya una nueva versión disponible
-      }
-    };
-
-    // Escuchar los mensajes enviados desde el service worker
-    navigator.serviceWorker.addEventListener("message", handleUpdateReady);
-
-    return () => {
-      navigator.serviceWorker.removeEventListener("message", handleUpdateReady);
-    };
-  }, []);
-
-  if (!updateAvailable || !showModal) return null;
+  if (!updateAvailable) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -75,19 +58,13 @@ const UpdateNotification = () => {
         <p>Versión nueva: {newVersion}</p>
         <div className="flex justify-around mt-4">
           <button
-            onClick={() => {
-              updateApp();
-              setShowModal(false); // Cerrar modal y actualizar
-            }}
+            onClick={updateApp}
             className="bg-blue-500 text-white px-4 py-2 rounded-md"
           >
             Actualizar ahora
           </button>
           <button
-            onClick={() => {
-              dismissUpdate();
-              setShowModal(false); // Cerrar modal y no hacer nada
-            }}
+            onClick={dismissUpdate}
             className="bg-gray-300 text-black px-4 py-2 rounded-md"
           >
             Más tarde
