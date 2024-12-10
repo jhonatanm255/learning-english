@@ -69,7 +69,7 @@ const CACHE_URLS = [
   "/manifest.webmanifest",
 ];
 
-self.addEventListener("install", (event) => {
+self.addEventListener("message", (event) => {
   const newVersion = "v2"; // Define manualmente la versión nueva
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
