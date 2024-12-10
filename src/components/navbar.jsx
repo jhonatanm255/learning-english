@@ -297,7 +297,7 @@ function Navbar() {
                   </ul>
                 </div>
 
-                <p className="text-center mt-4 text-gray-400 text-lg">
+                <p className="text-center mt-4 text-gray-400 text-md">
                   Versión: <strong>{__APP_VERSION__}</strong>
                 </p>
               </div>

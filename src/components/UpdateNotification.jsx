@@ -52,7 +52,7 @@
 
 
 import React from "react";
-import { useUpdate } from "../contexts/UpdateContext"; // Asegúrate de tener la ruta correcta
+import { useUpdate } from "../contexts/UpdateContext";
 
 function UpdateNotification() {
   const { updateAvailable, triggerUpdate, newVersion } = useUpdate(); // Accede al estado de la actualización y la nueva versión
@@ -83,7 +83,7 @@ function UpdateNotification() {
           Actualizar ahora
         </button>
         <button
-          onClick={() => window.location.reload()} // Recarga la página si el usuario no quiere actualizar
+          onClick={() => window.location.reload()} // Recarga la página sin aplicar la actualización
           className="bg-gray-500 text-white px-4 py-2 rounded-md"
         >
           Más tarde
@@ -94,6 +94,7 @@ function UpdateNotification() {
 }
 
 export default UpdateNotification;
+
 
 
 

@@ -58,8 +58,7 @@
 
 
 
-
-const CACHE_NAME = "v2"; // Actualiza la versión del cache aquí
+const CACHE_NAME = "v2"; // Versión del cache
 const CACHE_URLS = [
   "/",
   "/index.html",
@@ -69,13 +68,12 @@ const CACHE_URLS = [
   "/manifest.webmanifest",
 ];
 
-// En el evento de instalación, se realiza la caché y se notifica a los clientes
 self.addEventListener("install", (event) => {
   const newVersion = "v2"; // Define manualmente la versión nueva
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(CACHE_URLS).then(() => {
-        // Notificar a los clientes sobre la nueva versión disponible
+        // Notificar a los clientes sobre la nueva versión
         self.clients.matchAll().then((clients) => {
           clients.forEach((client) => {
             client.postMessage({ type: "UPDATE_READY", newVersion });
@@ -86,15 +84,15 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Este evento maneja los mensajes enviados desde la app
+// Escuchar el mensaje de 'SKIP_WAITING' para permitir la actualización manualmente
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting(); // Ejecutar solo si el cliente lo solicita
   }
 });
 
-// En el evento de activación, se eliminan cachés antiguos si la versión ha cambiado
 self.addEventListener("activate", (event) => {
+  // Borrar cachés antiguos si la versión del cache ha cambiado
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -108,7 +106,6 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Maneja las peticiones de red y cache
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
@@ -129,6 +126,7 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
 
 
 

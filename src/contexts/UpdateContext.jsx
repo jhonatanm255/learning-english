@@ -90,11 +90,12 @@ export const UpdateProvider = ({ children }) => {
     }
   }, []);
 
+  // Función para manejar la actualización
   const triggerUpdate = () => {
     if (navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: "SKIP_WAITING" });
     }
-    window.location.reload();
+    window.location.reload(); // Recarga la página una vez se aplica la actualización
   };
 
   return (
@@ -107,6 +108,7 @@ export const UpdateProvider = ({ children }) => {
 };
 
 export const useUpdate = () => useContext(UpdateContext);
+
 
 
 
