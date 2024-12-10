@@ -51,7 +51,6 @@
 
 
 
-
 import React from "react";
 import { useUpdate } from "../contexts/UpdateContext"; // Asegúrate de tener la ruta correcta
 
@@ -78,7 +77,7 @@ function UpdateNotification() {
       </p>
       <div className="mt-2">
         <button
-          onClick={triggerUpdate}
+          onClick={triggerUpdate} // Al hacer clic en "Actualizar ahora", ejecuta la función para actualizar
           className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
         >
           Actualizar ahora
@@ -95,6 +94,7 @@ function UpdateNotification() {
 }
 
 export default UpdateNotification;
+
 
 
 
