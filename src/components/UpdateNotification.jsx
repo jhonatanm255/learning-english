@@ -46,8 +46,6 @@
 
 
 
-
-
 import React from "react";
 import { useUpdate } from "../contexts/UpdateContext";
 
@@ -55,15 +53,17 @@ function UpdateNotification() {
   const { updateAvailable, triggerUpdate, newVersion, setUpdateAvailable } =
     useUpdate();
 
-    if (!updateAvailable) return null;
+  if (!updateAvailable) return null; // Si no hay actualizaciones, no renderiza el modal
 
   const handleUpdate = () => {
     triggerUpdate();
-    setUpdateAvailable(false);
+    setUpdateAvailable(false); // Oculta el modal después de actualizar
   };
 
   const handleLater = () => {
-    setUpdateAvailable(false);
+    console.log("Cerrando modal sin actualizar..."); // Debug
+    setUpdateAvailable(false); // Actualiza el estado para ocultar el modal
+    setTimeout(() => {}, 0);
   };
 
   return (
