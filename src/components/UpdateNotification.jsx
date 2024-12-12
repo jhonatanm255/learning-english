@@ -55,7 +55,7 @@ function UpdateNotification() {
   const { updateAvailable, triggerUpdate, newVersion, setUpdateAvailable } =
     useUpdate();
 
-    if (!updateAvailable) return null;
+    // if (!updateAvailable) return null;
 
   const handleUpdate = () => {
     triggerUpdate();
