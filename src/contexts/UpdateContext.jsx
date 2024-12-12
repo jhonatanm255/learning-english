@@ -127,78 +127,96 @@
 
 
 
-
-import { createContext, useContext, useState, useEffect } from "react";
-import { database, ref, set, get } from "../components/firebaseConfig"; // Importar las funciones de Firebase Realtime Database
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 const UpdateContext = createContext();
 
-export const UpdateProvider = ({ children }) => {
-  const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [newVersion, setNewVersion] = useState(null); // Para almacenar la nueva versión
-  const [updateDecisionMade, setUpdateDecisionMade] = useState(false); // Para saber si el usuario ya tomó una decisión
-  const [pendingUpdate, setPendingUpdate] = useState(false); // Para saber si hay una actualización pendiente
+export function UpdateProvider({ children }) {
+  const [pendingUpdate, setPendingUpdate] = useState(false);
+  const [updateAvailable, setUpdateAvailable] = useState(false); // Nueva actualización disponible
 
   useEffect(() => {
-    const checkPendingUpdate = async () => {
-      try {
-        const userId = "USER_ID"; // Obtén el ID del usuario, si es necesario
-        const dbRef = ref(database, "pendingUpdates/" + userId);
-        const snapshot = await get(dbRef);
+    // Supongamos que la URL de la nueva versión está almacenada en Firebase Storage
+    const storage = getStorage();
+    const versionRef = ref(storage, "app/version"); // La ruta donde guardas la versión
 
-        if (snapshot.exists()) {
-          const pendingUpdate = snapshot.val();
-          if (pendingUpdate && pendingUpdate.updatePending) {
-            setUpdateAvailable(true);
-            setNewVersion(pendingUpdate.version);
-            setPendingUpdate(true);
-          } else {
-            setPendingUpdate(false);
-          }
+    getDownloadURL(versionRef)
+      .then((url) => {
+        // Simulamos la verificación de la versión de la app
+        if (url) {
+          setUpdateAvailable(true); // Nueva actualización disponible
         }
-      } catch (error) {
-        console.error("Error fetching update info:", error);
-      }
-    };
-
-    checkPendingUpdate();
-  }, [updateDecisionMade]);
-
-  // Función para guardar la elección del usuario en Firebase
-  const saveUpdateDecision = async (status) => {
-    try {
-      const userId = "USER_ID"; // Obtén el ID del usuario
-      const dbRef = ref(database, "pendingUpdates/" + userId);
-      await set(dbRef, { updatePending: status, version: newVersion });
-    } catch (error) {
-      console.error("Error saving update decision:", error);
-    }
-  };
-
-  // Función para manejar la actualización
-  const triggerUpdate = () => {
-    if (navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: "SKIP_WAITING" });
-    }
-    window.location.reload(); // Recarga la página una vez se aplica la actualización
-  };
+      })
+      .catch((error) => {
+        console.error("Error al verificar la actualización:", error);
+      });
+  }, []);
 
   return (
     <UpdateContext.Provider
       value={{
-        updateAvailable,
-        triggerUpdate,
-        newVersion,
-        setUpdateAvailable,
-        setUpdateDecisionMade,
-        saveUpdateDecision,
         pendingUpdate,
         setPendingUpdate,
+        updateAvailable,
+        setUpdateAvailable,
       }}
     >
       {children}
     </UpdateContext.Provider>
   );
-};
+}
 
-export const useUpdate = () => useContext(UpdateContext);
+export function useUpdate() {
+  return useContext(UpdateContext);
+}
+
+
+
+
+
+// import React, { createContext, useContext, useState, useEffect } from "react";
+// import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+// const UpdateContext = createContext();
+
+// export function UpdateProvider({ children }) {
+//   const [pendingUpdate, setPendingUpdate] = useState(false); // Estado para saber si hay una actualización pendiente
+//   const [updateAvailable, setUpdateAvailable] = useState(false); // Estado que indica si hay una actualización disponible
+
+//   useEffect(() => {
+//     // Aquí se verifica si hay una nueva versión de la app en Firebase Storage
+//     const storage = getStorage();
+//     const versionRef = ref(storage, "app/version"); // Aquí asumimos que el archivo de versión está en 'app/version'
+
+//     // Tratamos de obtener la URL del archivo que contiene la versión
+//     getDownloadURL(versionRef)
+//       .then((url) => {
+//         // Si conseguimos la URL, podemos asumir que hay una nueva versión
+//         if (url) {
+//           setUpdateAvailable(true); // Se marca como disponible una nueva actualización
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error al verificar la actualización:", error); // En caso de error, lo logueamos
+//       });
+//   }, []); // El efecto solo se ejecuta una vez cuando el componente se monta
+
+//   return (
+//     <UpdateContext.Provider
+//       value={{
+//         pendingUpdate, // Valor que indica si hay una actualización pendiente
+//         setPendingUpdate, // Función para actualizar si hay una actualización pendiente
+//         updateAvailable, // Valor que indica si hay una actualización disponible
+//         setUpdateAvailable, // Función para actualizar si hay una nueva versión disponible
+//       }}
+//     >
+//       {children}
+//     </UpdateContext.Provider>
+//   );
+// }
+
+// // Hook personalizado para consumir el contexto desde cualquier componente
+// export function useUpdate() {
+//   return useContext(UpdateContext);
+// }
