@@ -122,6 +122,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "./AuthContext"; // Importar el contexto de autenticación
 import logolight from "../assets/logo-ingles-light.png";
 import { useNavigate } from "react-router-dom";
+import PendingUpdateNotification from "./PendingUpdateNotification"
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -300,6 +301,7 @@ function Navbar() {
                 <p className="text-center mt-4 text-gray-400 text-md">
                   Versión: <strong>{__APP_VERSION__}</strong>
                 </p>
+                <PendingUpdateNotification />
               </div>
             </div>
           </div>
