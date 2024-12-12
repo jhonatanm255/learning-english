@@ -115,18 +115,17 @@
 
 
 
-
-
 import React, { useState, useEffect, useRef } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "./AuthContext"; // Importar el contexto de autenticación
+import { useUpdate } from "../contexts/UpdateContext"; // Importar el contexto de actualización
 import logolight from "../assets/logo-ingles-light.png";
 import { useNavigate } from "react-router-dom";
-import PendingUpdateNotification from "./PendingUpdateNotification"
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useAuth(); // Obtener el usuario autenticado del contexto
+  const { pendingUpdate, setUpdateAvailable } = useUpdate(); // Obtener si hay actualización pendiente
   const navigate = useNavigate();
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
@@ -166,148 +165,156 @@ function Navbar() {
     }
   };
 
-  return (
-    <>
-      <div className="relative bg-white z-50 p-4 flex justify-between items-center shadow-md">
-        <img className="w-12" src={logolight} alt="logo-app" />
-        {/* CONTENEDOR DEL NOMBRE - CENTRADO */}
-        <h1 className="text-xl absolute left-1/2 transform -translate-x-1/2 font-semibold text-slate-700">
-          Learning English
-        </h1>
-        {user && (
-          <div className="flex items-center gap-4 text-slate-700">
-            {/* BOTÓN DE MENÚ: Visible solo en pantallas pequeñas */}
-            <i
-              ref={buttonRef}
-              onClick={toggleMenu}
-              className={`text-4xl bx ${
-                isMenuOpen ? "bx-x" : "bx-menu"
-              } lg:hidden`}
-            ></i>
-          </div>
-        )}
-        {/* MENÚ HORIZONTAL: Visible en pantallas medianas o mayores */}
-        {user && (
-          <ul className="hidden lg:flex gap-4 items-center">
-            <li
-              className="text-md text-slate-700 cursor-pointer"
-              onClick={() => navigate("/home")}
-            >
-              Home
-            </li>
-            <li
-              className="text-md text-slate-700 cursor-pointer"
-              onClick={() => navigate("/task")}
-            >
-              Task
-            </li>
-            <li
-              className="text-md text-slate-700 cursor-pointer"
-              onClick={() => navigate("/learning")}
-            >
-              Learning
-            </li>
-            <li
-              className="text-md text-slate-700 cursor-pointer"
-              onClick={() => navigate("/chatbox")}
-            >
-              Chatbox
-            </li>
-            <li
-              className="text-md text-red-600 cursor-pointer"
-              onClick={handleSignOut}
-            >
-              Logout
-            </li>
-          </ul>
-        )}
+  // Función para manejar el clic en "Actualización pendiente"
+  const handlePendingUpdateClick = () => {
+    setUpdateAvailable(true); // Mostrar nuevamente el modal de actualización
+  };
 
-        {/* MENÚ DESPLEGABLE: Visible solo en pantallas pequeñas */}
-        {user && (
-          <div
-            ref={menuRef}
-            className={`absolute -z-10 -ml-4 w-full h-[90vh] bg-slate-100 transition-transform duration-300 ease-in-out transform shadow-md ${
-              isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"
-            }`}
-            style={{ top: "100%" }} // Ajustar la posición para que salga debajo del navbar
+  return (
+    <div className="relative bg-white z-50 p-4 flex justify-between items-center shadow-md">
+      <img className="w-12" src={logolight} alt="logo-app" />
+      {/* CONTENEDOR DEL NOMBRE - CENTRADO */}
+      <h1 className="text-xl absolute left-1/2 transform -translate-x-1/2 font-semibold text-slate-700">
+        Learning English
+      </h1>
+      {user && (
+        <div className="flex items-center gap-4 text-slate-700">
+          {/* BOTÓN DE MENÚ: Visible solo en pantallas pequeñas */}
+          <i
+            ref={buttonRef}
+            onClick={toggleMenu}
+            className={`text-4xl bx ${
+              isMenuOpen ? "bx-x" : "bx-menu"
+            } lg:hidden`}
+          ></i>
+        </div>
+      )}
+      {/* MENÚ HORIZONTAL: Visible en pantallas medianas o mayores */}
+      {user && (
+        <ul className="hidden lg:flex gap-4 items-center">
+          <li
+            className="text-md text-slate-700 cursor-pointer"
+            onClick={() => navigate("/home")}
           >
-            <div className="flex flex-col justify-between gap-96">
-              <ul className="flex flex-col justify-center items-center gap-4 py-8">
+            Home
+          </li>
+          <li
+            className="text-md text-slate-700 cursor-pointer"
+            onClick={() => navigate("/task")}
+          >
+            Task
+          </li>
+          <li
+            className="text-md text-slate-700 cursor-pointer"
+            onClick={() => navigate("/learning")}
+          >
+            Learning
+          </li>
+          <li
+            className="text-md text-slate-700 cursor-pointer"
+            onClick={() => navigate("/chatbox")}
+          >
+            Chatbox
+          </li>
+          <li
+            className="text-md text-red-600 cursor-pointer"
+            onClick={handleSignOut}
+          >
+            Logout
+          </li>
+        </ul>
+      )}
+
+      {/* MENÚ DESPLEGABLE: Visible solo en pantallas pequeñas */}
+      {user && (
+        <div
+          ref={menuRef}
+          className={`absolute -z-10 -ml-4 w-full h-[90vh] bg-slate-100 transition-transform duration-300 ease-in-out transform shadow-md ${
+            isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"
+          }`}
+          style={{ top: "100%" }} // Ajustar la posición para que salga debajo del navbar
+        >
+          <div className="flex flex-col justify-between gap-96">
+            <ul className="flex flex-col justify-center items-center gap-4 py-8">
+              <li
+                onClick={() => {
+                  toggleMenu();
+                  navigate("/home");
+                }}
+                className="text-lg text-slate-700 cursor-pointer"
+              >
+                Home
+              </li>
+              <li
+                onClick={() => {
+                  toggleMenu();
+                  navigate("/task");
+                }}
+                className="text-lg text-slate-700 cursor-pointer"
+              >
+                Task
+              </li>
+              <li
+                onClick={() => {
+                  toggleMenu();
+                  navigate("/learning");
+                }}
+                className="text-lg text-slate-700 cursor-pointer"
+              >
+                Learning
+              </li>
+              <li
+                onClick={() => {
+                  toggleMenu();
+                  navigate("/chatbox");
+                }}
+                className="text-lg text-slate-700 cursor-pointer"
+              >
+                Chatbox
+              </li>
+              <li
+                className="text-lg text-red-600 cursor-pointer"
+                onClick={() => {
+                  toggleMenu();
+                  handleSignOut();
+                }}
+              >
+                Logout
+              </li>
+              {pendingUpdate && (
                 <li
-                  onClick={() => {
-                    toggleMenu();
-                    navigate("/home");
-                  }}
-                  className="text-lg text-slate-700 cursor-pointer"
+                  onClick={handlePendingUpdateClick}
+                  className="text-lg text-blue-500 cursor-pointer"
                 >
-                  Home
+                  Actualización pendiente
                 </li>
-                <li
-                  onClick={() => {
-                    toggleMenu();
-                    navigate("/task");
-                  }}
-                  className="text-lg text-slate-700 cursor-pointer"
-                >
-                  Task
-                </li>
-                <li
-                  onClick={() => {
-                    toggleMenu();
-                    navigate("/learning");
-                  }}
-                  className="text-lg text-slate-700 cursor-pointer"
-                >
-                  Learning
-                </li>
-                <li
-                  onClick={() => {
-                    toggleMenu();
-                    navigate("/chatbox");
-                  }}
-                  className="text-lg text-slate-700 cursor-pointer"
-                >
-                  Chatbox
-                </li>
-                <li
-                  className="text-lg text-red-600 cursor-pointer"
-                  onClick={() => {
-                    toggleMenu();
-                    handleSignOut();
-                  }}
-                >
-                  Logout
+              )}
+            </ul>
+
+            {/* SOCIAL NETWORK */}
+            <div>
+              <ul>
+                <li className="flex justify-center gap-4 text-3xl text-gray-500">
+                  <a href="#">
+                    <i className="bx bxl-facebook-circle"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/in/jhonatan-mu%C3%B1oz-1aa8bb28b/">
+                    <i className="bx bxl-linkedin"></i>
+                  </a>
+                  <a href="https://github.com/jhonatanm255 ">
+                    <i className="bx bxl-github"></i>
+                  </a>
                 </li>
               </ul>
 
-              {/* SOCIAL NETWORK */}
-              <div>
-                <div>
-                  <ul>
-                    <li className="flex justify-center gap-4 text-3xl text-gray-500">
-                      <a href="#">
-                        <i class="bx bxl-facebook-circle"></i>
-                      </a>
-                      <a href="https://www.linkedin.com/in/jhonatan-mu%C3%B1oz-1aa8bb28b/">
-                        <i class="bx bxl-linkedin"></i>
-                      </a>
-                      <a href="https://github.com/jhonatanm255 ">
-                        <i class="bx bxl-github"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <p className="text-center mt-4 text-gray-400 text-md">
-                  Versión: <strong>{__APP_VERSION__}</strong>
-                </p>
-                <PendingUpdateNotification />
-              </div>
+              <p className="text-center mt-4 text-gray-400 text-md">
+                Versión: <strong>{__APP_VERSION__}</strong>
+              </p>
             </div>
           </div>
-        )}
-      </div>
-    </>
+        </div>
+      )}
+    </div>
   );
 }
 

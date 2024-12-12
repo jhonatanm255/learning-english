@@ -128,16 +128,16 @@
 
 
 
-
 import { createContext, useContext, useState, useEffect } from "react";
-import { database, ref, set, get, child } from "../components/firebaseConfig"; // Importar las funciones de Firebase Realtime Database
+import { database, ref, set, get } from "../components/firebaseConfig"; // Importar las funciones de Firebase Realtime Database
 
 const UpdateContext = createContext();
 
 export const UpdateProvider = ({ children }) => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [newVersion, setNewVersion] = useState(null); // Para almacenar la nueva versión
-  const [updateDecisionMade, setUpdateDecisionMade] = useState(false);
+  const [updateDecisionMade, setUpdateDecisionMade] = useState(false); // Para saber si el usuario ya tomó una decisión
+  const [pendingUpdate, setPendingUpdate] = useState(false); // Para saber si hay una actualización pendiente
 
   useEffect(() => {
     const checkPendingUpdate = async () => {
@@ -148,9 +148,12 @@ export const UpdateProvider = ({ children }) => {
 
         if (snapshot.exists()) {
           const pendingUpdate = snapshot.val();
-          if (pendingUpdate) {
+          if (pendingUpdate && pendingUpdate.updatePending) {
             setUpdateAvailable(true);
             setNewVersion(pendingUpdate.version);
+            setPendingUpdate(true);
+          } else {
+            setPendingUpdate(false);
           }
         }
       } catch (error) {
@@ -189,6 +192,8 @@ export const UpdateProvider = ({ children }) => {
         setUpdateAvailable,
         setUpdateDecisionMade,
         saveUpdateDecision,
+        pendingUpdate,
+        setPendingUpdate,
       }}
     >
       {children}
@@ -197,4 +202,3 @@ export const UpdateProvider = ({ children }) => {
 };
 
 export const useUpdate = () => useContext(UpdateContext);
-
