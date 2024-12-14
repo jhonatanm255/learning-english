@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { firebase } from "firebase/app"; // Asegúrate de que Firebase esté configurado correctamente
+import { database } from "../components/firebaseConfig"; // Importa la configuración de Firebase
+import { ref, set, remove } from "firebase/database"; // Métodos de Firebase
 
 const UpdateContext = createContext();
 
@@ -28,14 +29,12 @@ export const UpdateProvider = ({ children }) => {
           setUpdateAvailable(true);
           setNewVersion(event.data.newVersion);
 
-          // Guardar estado en Firebase (Realtimedatabase)
-          if (firebase) {
-            const updateRef = firebase.database().ref("updates/pending");
-            updateRef.set({
-              version: event.data.newVersion,
-              status: "pending",
-            });
-          }
+          // Guardar estado en Firebase (Realtime Database)
+          const updateRef = ref(database, "updates/pending"); // Usar ref
+          set(updateRef, {
+            version: event.data.newVersion,
+            status: "pending",
+          });
         }
       });
     }
@@ -47,10 +46,8 @@ export const UpdateProvider = ({ children }) => {
     }
 
     // Limpiar el estado de la actualización pendiente en Firebase
-    if (firebase) {
-      const updateRef = firebase.database().ref("updates/pending");
-      updateRef.remove();
-    }
+    const updateRef = ref(database, "updates/pending"); // Usar ref
+    remove(updateRef); // Eliminar el estado pendiente de Firebase
 
     window.location.reload();
   };
