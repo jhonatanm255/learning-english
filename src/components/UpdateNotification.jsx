@@ -17,7 +17,10 @@ function UpdateNotification() {
   if (!isVisible) return null;
 
   const handleLater = () => {
-    setIsVisible(false); // Cierra el modal
+    // Usamos setTimeout(0) para forzar la actualización del estado después de que el renderizado termine
+    setTimeout(() => {
+      setIsVisible(false); // Cierra el modal
+    }, 0);
 
     // Guardar la actualización pendiente en Firebase
     const updateRef = ref(database, "updates/pending");

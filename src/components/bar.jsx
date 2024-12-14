@@ -32,7 +32,7 @@ function Bar() {
           {/* IMAGEN DE PERFIL DE LA SESION O ICONO DE USER */}
           {profilePicture ? (
             <img
-              className="w-8 h-8 rounded-full ml-2"
+              className="w-8 h-8 rounded-full ml-2 object-cover"
               src={profilePicture}
               alt="Profile"
             />
