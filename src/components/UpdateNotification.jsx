@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useUpdate } from "../contexts/UpdateContext";
-import { firebase } from "firebase/app"; // Asegúrate de que Firebase esté correctamente configurado
+import { database } from "../firebaseConfig"; // Importar desde el archivo de configuración de Firebase
+import { ref, set } from "firebase/database";
 
 function UpdateNotification() {
   const { updateAvailable, triggerUpdate, newVersion, setUpdateAvailable } =
@@ -19,10 +20,8 @@ function UpdateNotification() {
     setIsVisible(false); // Cierra el modal
 
     // Guardar la actualización pendiente en Firebase
-    if (firebase) {
-      const updateRef = firebase.database().ref("updates/pending");
-      updateRef.set({ version: newVersion, status: "pending" });
-    }
+    const updateRef = ref(database, "updates/pending");
+    set(updateRef, { version: newVersion, status: "pending" });
   };
 
   const handleUpdateNow = () => {
