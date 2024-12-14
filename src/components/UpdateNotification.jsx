@@ -1,6 +1,6 @@
 import React from "react";
 import { useUpdate } from "../contexts/UpdateContext";
-import firebase from "firebase/app"; // Asegúrate de que Firebase esté correctamente configurado
+import { firebase } from "firebase/app"; // Asegúrate de que Firebase esté correctamente configurado
 
 function UpdateNotification() {
   const { updateAvailable, triggerUpdate, newVersion, setUpdateAvailable } =

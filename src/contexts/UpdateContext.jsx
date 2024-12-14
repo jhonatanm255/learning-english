@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import firebase from "firebase/app"; // Asegúrate de que Firebase esté configurado correctamente
+import { firebase } from "firebase/app"; // Asegúrate de que Firebase esté configurado correctamente
 
 const UpdateContext = createContext();
 
