@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useUpdate } from "../contexts/UpdateContext";
-import { database } from "../firebaseConfig"; // Importar desde el archivo de configuración de Firebase
+import { database } from "./firebaseConfig"; // Importar desde el archivo de configuración de Firebase
 import { ref, set } from "firebase/database";
 
 function UpdateNotification() {
