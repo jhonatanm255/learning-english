@@ -23,12 +23,6 @@ self.addEventListener("install", (event) => {
           clients.forEach((client) => {
             client.postMessage({ type: "UPDATE_READY", newVersion });
           });
-
-          // Guardar el estado de la actualización pendiente en Firebase
-          if (firebase) {
-            const updateRef = firebase.database().ref("updates/pending");
-            updateRef.set({ version: newVersion, status: "pending" });
-          }
         });
       });
     })
@@ -58,6 +52,8 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
+  // Toma control de todas las pestañas abiertas inmediatamente
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -83,6 +79,16 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
+
+
+
+
+
+
+
+
+
 
 // const CACHE_NAME = "v2"; // Versión del cache
 // const CACHE_URLS = [
