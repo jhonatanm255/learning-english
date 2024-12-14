@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useUpdate } from "../contexts/UpdateContext";
-import { database } from "../components/firebaseConfig"; // Asegúrate de que esta ruta sea correcta
-import { ref, set } from "firebase/database"; // Importa los métodos necesarios
+import { firebase } from "firebase/app"; // Asegúrate de que Firebase esté correctamente configurado
 
 function UpdateNotification() {
   const { updateAvailable, triggerUpdate, newVersion, setUpdateAvailable } =
     useUpdate();
 
-  // if (!updateAvailable) return null;
+  // Estado para controlar la visibilidad del modal
+  const [isVisible, setIsVisible] = useState(updateAvailable);
+
+  useEffect(() => {
+    setIsVisible(updateAvailable);
+  }, [updateAvailable]);
+
+  if (!isVisible) return null;
 
   const handleLater = () => {
-    setUpdateAvailable(false); // Desactiva la notificación visualmente
+    setIsVisible(false); // Cierra el modal
 
     // Guardar la actualización pendiente en Firebase
-    const updateRef = ref(database, "updates/pending");
-    set(updateRef, { version: newVersion, status: "pending" }); // Guardar los datos en Firebase
+    if (firebase) {
+      const updateRef = firebase.database().ref("updates/pending");
+      updateRef.set({ version: newVersion, status: "pending" });
+    }
+  };
+
+  const handleUpdateNow = () => {
+    triggerUpdate(); // Inicia la actualización inmediatamente
+    setIsVisible(false); // Cierra el modal
   };
 
   return (
@@ -33,7 +46,7 @@ function UpdateNotification() {
       </p>
       <div className="mt-2">
         <button
-          onClick={triggerUpdate}
+          onClick={handleUpdateNow} // Cierra el modal y actualiza
           className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
         >
           Actualizar ahora
