@@ -33,7 +33,7 @@ const similarity = (s1, s2) => {
   // Normalizamos las cadenas (sin espacios, en minúsculas)
   const dist = levenshtein(s1.trim().toLowerCase(), s2.trim().toLowerCase());
   const maxLen = Math.max(s1.length, s2.length);
-  const threshold = 0.5; // Cambiar umbral si es necesario
+  const threshold = 0.4; // Cambiar umbral si es necesario
 
   // Usamos un umbral mayor para aceptar variaciones
   return 1 - dist / maxLen > threshold;
