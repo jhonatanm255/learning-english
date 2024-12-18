@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/navbar";
 import Bar from "./components/bar";
@@ -20,16 +21,39 @@ import { UpdateProvider } from "./contexts/UpdateContext";
 import UpdateNotification from "./components/UpdateNotification"; // Componente para mostrar la notificación de actualización
 
 function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Cambiar entre modo oscuro y claro
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
+
+  useEffect(() => {
+    // Guardamos la preferencia del modo en el localStorage
+    const savedMode = localStorage.getItem("darkMode") === "true";
+    setIsDarkMode(savedMode);
+  }, []);
+
+  useEffect(() => {
+    // Actualizamos el localStorage cuando se cambia el modo
+    localStorage.setItem("darkMode", isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
   return (
     <AuthProvider>
       <UpdateProvider>
         {" "}
         {/* Envuelve toda la app con el UpdateProvider */}
         <Router>
-          <div className="flex flex-col h-screen justify-between">
+          <div className="flex flex-col h-screen justify-between dark:bg-gray-700">
             {/* BARRA DE NAVEGACION SUPERIOR */}
-            <Navbar />
-
+            <Navbar isDarkMode={isDarkMode} />{" "}
+            {/* Pasamos isDarkMode como prop */}
             {/* INICIO DE SESION */}
             <div className="flex-grow">
               <Routes>
@@ -57,9 +81,9 @@ function App() {
                 />
               </Routes>
             </div>
-
             {/* BARRA DE NAVEGACION INFERIOR */}
-            <Bar />
+            <Bar toggleDarkMode={toggleDarkMode} />{" "}
+            {/* Pasamos la función para cambiar el modo */}
           </div>
         </Router>
         <UpdateNotification />{" "}
