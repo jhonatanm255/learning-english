@@ -46,9 +46,9 @@ const Translator = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-gray-50 rounded-md shadow-lg">
+    <div className="p-6 max-w-4xl mx-auto mt-12 bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg transition-all duration-500 ease-in-out">
       <div className="flex justify-between">
-        <h1 className="text-2xl font-bold text-center mb-4">
+        <h1 className="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">
           Traductor de Idiomas
         </h1>
         <BackButton />
@@ -56,7 +56,7 @@ const Translator = () => {
 
       <div className="flex flex-col md:flex-row gap-6">
         <textarea
-          className="w-full p-4 border border-gray-300 rounded-md focus:ring focus:ring-blue-300"
+          className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
           rows="5"
           placeholder="Introduce el texto aquí..."
           value={inputText}
@@ -64,7 +64,7 @@ const Translator = () => {
           aria-label="Texto a traducir"
         />
         <textarea
-          className="w-full p-4 border border-gray-300 rounded-md bg-gray-100"
+          className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white transition-all duration-500 ease-in-out"
           rows="5"
           readOnly
           placeholder={
@@ -86,7 +86,7 @@ const Translator = () => {
 
       <div className="flex items-center justify-between mt-4">
         <select
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          className="p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
           value={sourceLanguage}
           onChange={(e) => setSourceLanguage(e.target.value)}
           aria-label="Seleccionar idioma de origen"
@@ -101,7 +101,7 @@ const Translator = () => {
           <option value="zh-CN">Chino</option>
         </select>
         <select
-          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          className="p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
           value={targetLanguage}
           onChange={(e) => setTargetLanguage(e.target.value)}
           aria-label="Seleccionar idioma objetivo"
@@ -117,7 +117,7 @@ const Translator = () => {
         </select>
         <button
           onClick={translateText}
-          className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600"
+          className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition-all duration-500 ease-in-out"
           disabled={loading}
           aria-busy={loading}
         >

@@ -127,25 +127,27 @@ function VoicePractice() {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center transition-all ease-in-out duration-300">
       <div className="flex justify-between px-4 py-4">
-        <h2 className="text-2xl text-gray-700 font-bold mb-4">
+        <h2 className="text-2xl text-gray-700 dark:text-gray-200 font-bold mb-4 transition-all ease-in-out duration-300">
           Práctica de pronunciación
         </h2>
         <BackButton />
       </div>
 
       <div className="flex justify-start items-center gap-2 mt-8">
-        <BiCategoryAlt className="text-3xl text-green-600" />
-        <p className="text-2xl text-gray-500 font-semibold">Categorías</p>
+        <BiCategoryAlt className="text-3xl text-green-600 dark:text-green-400 transition-all ease-in-out duration-300" />
+        <p className="text-2xl text-gray-500 dark:text-gray-300 font-semibold transition-all ease-in-out duration-300">
+          Categorías
+        </p>
       </div>
-      <p className="text-slate-500 text-lg py-4">
+      <p className="text-slate-500 dark:text-slate-400 text-lg py-4 transition-all ease-in-out duration-300">
         Seleccione entre las cuatro categorías que tiene la app para practicar
         la pronunciación de distintas palabras.
       </p>
 
       <select
-        className="p-2 bg-blue-200 rounded mt-4 text-xl text-slate-800"
+        className="p-2 bg-blue-200 dark:bg-blue-600 rounded mt-4 text-xl text-slate-800 dark:text-slate-100 transition-all ease-in-out duration-300"
         onChange={handleCategoryChange}
         value={selectedCategory}
       >
@@ -155,34 +157,34 @@ function VoicePractice() {
         <option value="numeros">Números</option>
       </select>
 
-      <p className="my-4 text-slate-700 text-xl">
+      <p className="my-4 text-slate-700 dark:text-slate-300 text-xl transition-all ease-in-out duration-300">
         Frase:{" "}
-        <strong>
+        <strong className="text-gray-900 dark:text-gray-100 transition-all ease-in-out duration-300">
           {wordsByCategory[selectedCategory]?.[currentWordIndex] || ""}
         </strong>
       </p>
 
       <button
         onClick={handleSpeak}
-        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
+        className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded transition-all ease-in-out duration-300"
       >
         Escuchar Frase
       </button>
       <button
         onClick={handleRecognition}
-        className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded ml-4"
+        className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded ml-4 transition-all ease-in-out duration-300"
       >
         Repetir Frase
       </button>
 
       {userSpeech && (
-        <p className="mt-4">
+        <p className="mt-4 text-gray-800 dark:text-gray-100 transition-all ease-in-out duration-300">
           Tú dijiste: <strong>{userSpeech}</strong>
         </p>
       )}
       {feedback && (
         <p
-          className={`mt-4 ${
+          className={`mt-4 transition-all ease-in-out duration-300 ${
             feedback === "¡Correcto!" ? "text-green-500" : "text-red-500"
           }`}
         >

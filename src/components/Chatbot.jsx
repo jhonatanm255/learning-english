@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import BackButton from "./backbutton";
@@ -57,12 +56,14 @@ function Chatbot() {
   };
 
   return (
-    <div className="w-full h-full mx-auto p-4 bg-white shadow-md rounded">
+    <div className="w-full h-full mx-auto p-4 bg-white dark:bg-gray-800 shadow-md rounded transition-all duration-500 ease-in-out">
       <div className="flex justify-between">
-        <h2 className="text-2xl font-bold mb-4">Chatbot Learning English</h2>
+        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+          Chatbot Learning English
+        </h2>
         <BackButton />
       </div>
-      <div className="chat-window h-[540px] max-h-[540px] lg:h-[315px] overflow-y-auto mb-4 p-2 border border-gray-300 rounded bg-gray-50">
+      <div className="chat-window h-[540px] max-h-[540px] lg:h-[315px] overflow-y-auto mb-4 p-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 transition-all duration-500 ease-in-out">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -79,7 +80,9 @@ function Chatbot() {
             </strong>
             <span
               className={`ml-2 p-2 inline-block rounded ${
-                msg.sender === "user" ? "bg-blue-100" : "bg-green-100"
+                msg.sender === "user"
+                  ? "bg-blue-100 dark:bg-blue-600 text-blue-900 dark:text-white"
+                  : "bg-green-100 dark:bg-green-600 text-green-900 dark:text-white"
               }`}
             >
               {msg.text}
@@ -89,7 +92,9 @@ function Chatbot() {
       </div>
 
       {loading && (
-        <div className="text-center text-gray-500 mb-2">Writing...</div>
+        <div className="text-center text-gray-500 dark:text-gray-400 mb-2">
+          Writing...
+        </div>
       )}
 
       <form onSubmit={handleSubmit} className="flex">
@@ -99,11 +104,11 @@ function Chatbot() {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Escribe tu mensaje..."
           required
-          className="flex-grow outline-none p-2 border border-gray-300 rounded-l"
+          className="flex-grow outline-none p-2 border border-gray-300 dark:border-gray-600 rounded-l dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded-r hover:bg-blue-600"
+          className="bg-blue-500 text-white p-2 rounded-r hover:bg-blue-600 transition-all duration-500 ease-in-out"
         >
           <i className="flex items-center px-2 bx bx-send"></i>
         </button>
