@@ -4,7 +4,7 @@ const CACHE_URLS = [
   "/index.html",
   "/static/js/main.js",
   "/static/css/main.css",
-  "/logo-ingles-light.png",
+  "/logo2.png",
   "/manifest.webmanifest",
 ];
 

@@ -4,6 +4,9 @@ import { useAuth } from "./AuthContext";
 import { useUpdate } from "../contexts/UpdateContext";
 import logolight from "../assets/logo-ingles-light.png"; // Logo para modo claro
 import logodark from "../assets/logo-ingles-dark.png"; // Logo para modo oscuro
+import logo1 from "../assets/logo1.png";
+import logo2 from "../assets/logo2.png";
+import logo3 from "../assets/logo3.png";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ isDarkMode }) {
@@ -58,10 +61,11 @@ function Navbar({ isDarkMode }) {
     <div className="relative bg-white dark:bg-gray-800 z-50 p-4 flex justify-between items-center shadow-md dark:text-white transform transition-all ease-in-out duration-300">
       {/* Logo que cambia dependiendo del modo */}
       <img
-        className="w-12"
-        src={isDarkMode ? logodark : logolight} // Cambié las fuentes de logo
+        className="w-14"
+        src={logo2} // Cambiar el logo según el modo
         alt="logo-app"
       />
+
       {/* Resto del contenido */}
       <h1 className="text-xl absolute left-1/2 transform -translate-x-1/2 font-semibold text-slate-700 dark:text-white">
         Learning English
@@ -105,20 +109,14 @@ function Navbar({ isDarkMode }) {
           >
             Chatbox
           </li>
-          <li
-            className="text-md text-red-600 dark:text-red-400 cursor-pointer"
-            onClick={handleSignOut}
-          >
-            Logout
-          </li>
         </ul>
       )}
       {/* MENÚ DESPLEGABLE: Visible solo en pantallas pequeñas */}
       {user && (
         <div
           ref={menuRef}
-          className={`absolute -z-10 -ml-4 w-full bg-slate-100 dark:bg-gray-700 transition-transform duration-300 ease-in-out transform shadow-md ${
-            isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"
+          className={`absolute -ml-4 w-full bg-slate-100 dark:bg-gray-700 transition-transform duration-300 ease-in-out transform shadow-md ${
+            isMenuOpen ? "translate-x-0" : "-translate-x-[100%]"
           }`}
           style={{ top: "100%" }}
         >
@@ -193,7 +191,7 @@ function Navbar({ isDarkMode }) {
                 </li>
               </ul>
 
-              <p className="text-center my-4 text-gray-400 dark:text-gray-500 text-md">
+              <p className="text-center my-4 text-gray-400 text-md">
                 Versión: <strong>{__APP_VERSION__}</strong>
               </p>
             </div>
