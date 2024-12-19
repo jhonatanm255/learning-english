@@ -2,11 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import { useAuth } from "./AuthContext";
 import { useUpdate } from "../contexts/UpdateContext";
-import logolight from "../assets/logo-ingles-light.png"; // Logo para modo claro
-import logodark from "../assets/logo-ingles-dark.png"; // Logo para modo oscuro
-import logo1 from "../assets/logo1.png";
 import logo2 from "../assets/logo2.png";
-import logo3 from "../assets/logo3.png";
 import { useNavigate } from "react-router-dom";
 
 function Navbar({ isDarkMode }) {

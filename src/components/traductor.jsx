@@ -45,10 +45,16 @@ const Translator = () => {
     }
   };
 
+  // Función para invertir los idiomas de origen y destino
+  const toggleLanguages = () => {
+    setSourceLanguage(targetLanguage);
+    setTargetLanguage(sourceLanguage);
+  };
+
   return (
     <div className="p-6 max-w-4xl mx-auto bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg transition-all duration-500 ease-in-out">
       <div className="flex justify-between">
-        <h1 className="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
           Traductor
         </h1>
         <BackButton />
@@ -57,7 +63,7 @@ const Translator = () => {
       <div className="flex flex-col md:flex-row gap-6">
         <textarea
           className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
-          rows="5"
+          rows="7"
           placeholder="Introduce el texto aquí..."
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -65,7 +71,7 @@ const Translator = () => {
         />
         <textarea
           className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white transition-all duration-500 ease-in-out"
-          rows="5"
+          rows="7"
           readOnly
           placeholder={
             loading ? "Traduciendo..." : "Traducción aparecerá aquí..."
@@ -84,37 +90,51 @@ const Translator = () => {
         </div>
       )}
 
-      <div className="flex items-center justify-between mt-4">
-        <select
-          className="p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
-          value={sourceLanguage}
-          onChange={(e) => setSourceLanguage(e.target.value)}
-          aria-label="Seleccionar idioma de origen"
-        >
-          <option value="en">Inglés</option>
-          <option value="es">Español</option>
-          <option value="fr">Francés</option>
-          <option value="de">Alemán</option>
-          <option value="it">Italiano</option>
-          <option value="ja">Japonés</option>
-          <option value="ko">Coreano</option>
-          <option value="zh-CN">Chino</option>
-        </select>
-        <select
-          className="p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
-          value={targetLanguage}
-          onChange={(e) => setTargetLanguage(e.target.value)}
-          aria-label="Seleccionar idioma objetivo"
-        >
-          <option value="es">Español</option>
-          <option value="en">Inglés</option>
-          <option value="fr">Francés</option>
-          <option value="de">Alemán</option>
-          <option value="it">Italiano</option>
-          <option value="ja">Japonés</option>
-          <option value="ko">Coreano</option>
-          <option value="zh-CN">Chino</option>
-        </select>
+      <div className="flex flex-col gap-4 mt-4">
+        <div className="flex items-center justify-between">
+          <select
+            className="p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
+            value={sourceLanguage}
+            onChange={(e) => setSourceLanguage(e.target.value)}
+            aria-label="Seleccionar idioma de origen"
+          >
+            <option value="en">Inglés</option>
+            <option value="es">Español</option>
+            <option value="fr">Francés</option>
+            <option value="de">Alemán</option>
+            <option value="it">Italiano</option>
+            <option value="ja">Japonés</option>
+            <option value="ko">Coreano</option>
+            <option value="zh-CN">Chino</option>
+          </select>
+
+          {/* Botón para alternar idiomas */}
+          <button
+            onClick={toggleLanguages}
+            className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white rounded-md mx-2"
+            aria-label="Alternar idiomas"
+          >
+            <i class="bx bx-transfer font-semibold flex items-center"></i>
+          </button>
+
+          <select
+            className="p-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
+            value={targetLanguage}
+            onChange={(e) => setTargetLanguage(e.target.value)}
+            aria-label="Seleccionar idioma objetivo"
+          >
+            <option value="es">Español</option>
+            <option value="en">Inglés</option>
+            <option value="fr">Francés</option>
+            <option value="de">Alemán</option>
+            <option value="it">Italiano</option>
+            <option value="ja">Japonés</option>
+            <option value="ko">Coreano</option>
+            <option value="zh-CN">Chino</option>
+          </select>
+        </div>
+
+        {/* Botón de traducción debajo de los selectores */}
         <button
           onClick={translateText}
           className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition-all duration-500 ease-in-out"
