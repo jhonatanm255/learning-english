@@ -68,7 +68,7 @@ function Bar({ appVersion, onLogout }) {
   };
 
   return (
-    <div className="relative">
+    <div>
       <ul className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-top transform transition-all ease-in-out duration-300">
         <li>
           <i className="hover:bg-gray-300 p-1 px-2 rounded text-2xl text-slate-700 dark:text-slate-200 dark:hover:text-slate-700 bx bx-home"></i>
@@ -80,7 +80,7 @@ function Bar({ appVersion, onLogout }) {
           <i className="hover:bg-gray-300 p-1 px-2 rounded text-2xl text-slate-700 dark:text-slate-200 dark:hover:text-slate-700 bx bx-book-bookmark"></i>
         </li>
         <li>
-          {/* IMAGEN DE PERFIL DE LA SESION O ICONO DE CONFIGURACIÓN */}
+          {/* IMAGEN DE PERFIL DE LA SESION O ICONO DE USER */}
           {user ? (
             <img
               className="w-8 h-8 rounded-full ml-2 object-cover cursor-pointer"
@@ -98,34 +98,36 @@ function Bar({ appVersion, onLogout }) {
       </ul>
 
       {/* Menú del perfil con transición */}
-      <div
-        className={`absolute right-0 -top-[220%] bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-48 transition-transform duration-300 ease-in-out transform ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <button
-          onClick={toggleDarkMode}
-          className="w-full text-left text-gray-900 dark:text-white p-2"
+      {isMenuOpen && (
+        <div
+          className={`absolute right-2 -mt-56 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-48 transform transition-all ease-in-out duration-300 ${
+            isMenuOpen ? "scale-100 opacity-100" : "scale-0 opacity-0"
+          }`}
         >
-          {isDarkMode ? "☀️ Light Mode" : "🌑 Dark Mode"}
-        </button>
-        <div className="border-t border-gray-300 dark:border-gray-600"></div>
-
-        {/* Mostrar botón de logout solo si el usuario está autenticado */}
-        {user && (
           <button
-            onClick={handleSignOut}
-            className="w-full text-left text-red-500 p-2 flex mt-1 items-center"
+            onClick={toggleDarkMode}
+            className="w-full text-left text-gray-900 dark:text-white p-2"
           >
-            <i className="bx bx-log-out-circle mr-1 text-lg"></i>
-            Logout
+            {isDarkMode ? "☀️ Light Mode" : "🌑 Dark Mode"}
           </button>
-        )}
+          <div className="border-t border-gray-300 dark:border-gray-600"></div>
 
-        <div className="text-gray-600 dark:text-gray-400 mt-1 px-2 text-sm">
-          Versión: <strong>{appVersion}</strong>
+          {/* Mostrar botón de logout solo si el usuario está autenticado */}
+          {user && (
+            <button
+              onClick={handleSignOut}
+              className="w-full text-left text-red-500 p-2 flex mt-1 items-center"
+            >
+              <i className="bx bx-log-out-circle mr-1 text-lg"></i>
+              Logout
+            </button>
+          )}
+
+          <div className="text-gray-600 dark:text-gray-400 mt-1 px-2 text-sm">
+            Versión: <strong>{__APP_VERSION__}</strong>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
