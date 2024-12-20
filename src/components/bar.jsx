@@ -247,7 +247,7 @@ function Bar({ appVersion, onLogout }) {
       {/* Menú del perfil con transición */}
       {isMenuOpen && (
         <div
-          className={`absolute right-2 bottom-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-48 transform transition-all ease-in-out duration-300
+          className={`absolute right-2 bottom-20 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-48 transform transition-all ease-in-out duration-300
           ${isMenuOpen ? "translate-y-0" : "translate-y-full"}`}
         >
           <div className="flex flex-col gap-2">
