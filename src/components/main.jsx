@@ -8,6 +8,7 @@ function Main() {
       <h2 className="mt-8 text-2xl font-bold text-gray-900 dark:text-gray-100 lg:mt-16">
         Herramientas de aprendizaje
       </h2>
+      
       <div className="grid grid-cols-1 w-full gap-4 pt-8 lg:flex lg:pt-16 lg:px-8">
         {/* CHATBOT */}
         <Link className="w-full" to="/chatbot">

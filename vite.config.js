@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "autoUpdate", // Configura el service worker para que se registre automáticamente
+      registerType: "prompt",
       workbox: {
         // Opciones de caché y otros ajustes de workbox
       },
