@@ -4,8 +4,9 @@ import { PiTranslateFill } from "react-icons/pi";
 
 function Main() {
   return (
-    <>
-      <h2 className="text-center mt-28 text-2xl font-bold text-gray-900 dark:text-gray-100 lg:mt-16">
+
+    <div className="container my-24 px-4">
+        <h2 className="text-center mt-28 text-2xl font-bold text-gray-900 dark:text-gray-100 lg:mt-16">
         Herramientas de aprendizaje
       </h2>
 
@@ -112,15 +113,10 @@ function Main() {
           </p>
         </div>
 
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
+        
       </div>
-    </>
+    </div>
+      
   );
 }
 
