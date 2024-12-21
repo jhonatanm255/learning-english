@@ -50,7 +50,7 @@ function App() {
         {" "}
         {/* Envuelve toda la app con el UpdateProvider */}
         <Router>
-          <div className="flex flex-col h-screen justify-between dark:bg-gray-700">
+          <div className="flex flex-col h-full justify-between dark:bg-gray-700">
             {/* BARRA DE NAVEGACION SUPERIOR */}
             <Navbar isDarkMode={isDarkMode} />{" "}
             {/* Pasamos isDarkMode como prop */}
