@@ -17,7 +17,7 @@ export default defineConfig({
       manifest: {
         name: "Learning English",
         short_name: "Learning English",
-        description: "Una app de traducción de idiomas",
+        description: "Una app para el parendizaje y la practica del ingles",
         start_url: ".",
         display: "standalone", // Esto le da a la app un aspecto de "aplicación nativa"
         background_color: "#ffffff",

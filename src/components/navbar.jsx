@@ -54,7 +54,7 @@ function Navbar({ isDarkMode }) {
   };
 
   return (
-    <div className="relative bg-white dark:bg-gray-800 z-50 p-4 flex justify-between items-center shadow-md dark:text-white transform transition-all ease-in-out duration-300">
+    <div className="fixed w-full bg-white dark:bg-gray-800 z-50 p-4 flex justify-between items-center shadow-md dark:text-white transform transition-all ease-in-out duration-300">
       {/* Logo que cambia dependiendo del modo */}
       <img
         className="w-12"

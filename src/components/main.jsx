@@ -5,10 +5,10 @@ import { PiTranslateFill } from "react-icons/pi";
 function Main() {
   return (
     <>
-      <h2 className="mt-8 text-2xl font-bold text-gray-900 dark:text-gray-100 lg:mt-16">
+      <h2 className="text-center mt-28 text-2xl font-bold text-gray-900 dark:text-gray-100 lg:mt-16">
         Herramientas de aprendizaje
       </h2>
-      
+
       <div className="grid grid-cols-1 w-full gap-4 pt-8 lg:flex lg:pt-16 lg:px-8">
         {/* CHATBOT */}
         <Link className="w-full" to="/chatbot">
@@ -41,12 +41,84 @@ function Main() {
         </Link>
 
         {/* NUEVO ITEM */}
-        {/* <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
           <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
           <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
             Nuevo Item
           </p>
-        </div> */}
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
+
+        {/* NUEVO ITEM */}
+        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
+          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
+            Nuevo Item
+          </p>
+        </div>
       </div>
     </>
   );
