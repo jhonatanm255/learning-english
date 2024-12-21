@@ -42,78 +42,12 @@ function Main() {
         </Link>
 
         {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
+        {/* <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
           <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
           <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
             Nuevo Item
           </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        {/* NUEVO ITEM */}
-        <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-          <i className="text-red-400 text-5xl flex justify-center py-8 bx bxs-heart"></i>
-          <p className="text-slate-800 dark:text-gray-200 font-semibold text-center ml-8 text-lg">
-            Nuevo Item
-          </p>
-        </div>
-
-        
+        </div> */}        
       </div>
     </div>
       
