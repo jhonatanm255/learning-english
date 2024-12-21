@@ -138,7 +138,7 @@ function PendingUpdateNotification() {
     setUpdateDecisionMade(false); // El usuario no ha tomado una decisión
   };
 
-  if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
+  // if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
 
   return (
     <>
