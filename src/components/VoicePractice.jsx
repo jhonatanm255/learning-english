@@ -127,7 +127,7 @@ function VoicePractice() {
   };
 
   return (
-    <div className="text-center transition-all ease-in-out duration-300">
+    <div className="my-24 text-center transition-all ease-in-out duration-300">
       <div className="flex justify-between px-4 py-4">
         <h2 className="text-2xl text-gray-700 dark:text-gray-200 font-bold mb-4 transition-all ease-in-out duration-300">
           Práctica de pronunciación

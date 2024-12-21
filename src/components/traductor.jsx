@@ -52,7 +52,7 @@ const Translator = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg transition-all duration-500 ease-in-out">
+    <div className="p-6 max-w-4xl mx-auto mt-20 bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg transition-all duration-500 ease-in-out">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
           Traductor
