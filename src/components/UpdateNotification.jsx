@@ -36,11 +36,8 @@
 //     triggerUpdate(); // Inicia la actualización
 //     setIsVisible(false); // Cierra el modal
 
-//     // Podrías limpiar el registro de Firebase aquí si es necesario
-//     const updateRef = ref(database, "updates/pending");
-//     set(updateRef, null).catch((error) =>
-//       console.error("Error al limpiar actualización pendiente:", error)
-//     );
+//     // Ya no es necesario limpiar la actualización pendiente en Firebase aquí,
+//     // ya que el triggerUpdate debe ocuparse de eso.
 //   };
 
 //   return (
@@ -83,24 +80,20 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import { useUpdate } from "../contexts/UpdateContext";
 import { database } from "./firebaseConfig";
-import { ref, set } from "firebase/database";
+import { ref, set, remove } from "firebase/database";
 
 function UpdateNotification() {
   const { updateAvailable, triggerUpdate, newVersion, setUpdateAvailable } =
     useUpdate();
 
-  // Estado para controlar la visibilidad del modal
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (updateAvailable) setIsVisible(true);
   }, [updateAvailable]);
-
-  if (!isVisible) return null;
 
   const handleLater = () => {
     // Cierra el modal
@@ -115,15 +108,21 @@ function UpdateNotification() {
       );
 
     // Actualizar el estado global
-    setUpdateAvailable(false);
+    setUpdateAvailable(false); // Cambiar a 'false' para que el botón de "Update Pending" no aparezca
   };
 
   const handleUpdateNow = () => {
     triggerUpdate(); // Inicia la actualización
     setIsVisible(false); // Cierra el modal
 
-    // Ya no es necesario limpiar la actualización pendiente en Firebase aquí,
-    // ya que el triggerUpdate debe ocuparse de eso.
+    // Eliminar la actualización pendiente en Firebase
+    const updateRef = ref(database, "updates/pending");
+    remove(updateRef)
+      .then(() => {
+        console.log("Actualización pendiente eliminada de Firebase.");
+        setUpdateAvailable(false); // Cambiar a 'false' para que el botón de "Update Pending" no aparezca
+      })
+      .catch((error) => console.error("Error al eliminar de Firebase:", error));
   };
 
   return (

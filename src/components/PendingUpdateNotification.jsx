@@ -54,7 +54,8 @@
 //     setUpdateDecisionMade(false); // El usuario no ha tomado una decisión
 //   };
 
-//   // if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
+//   // Si no hay actualización pendiente, no mostramos nada
+//   // if (!pendingUpdate) return null;
 
 //   return (
 //     <>
@@ -67,11 +68,15 @@
 //           ¡Update Pending!
 //         </button>
 //       </div>
+
+//       {/* Modal de actualización */}
+//       {/* {showModal && <UpdateNotification />} */}
 //     </>
 //   );
 // }
 
 // export default PendingUpdateNotification;
+
 
 
 
@@ -135,8 +140,7 @@ function PendingUpdateNotification() {
     setUpdateDecisionMade(false); // El usuario no ha tomado una decisión
   };
 
-  // Si no hay actualización pendiente, no mostramos nada
-  // if (!pendingUpdate) return null;
+  if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
 
   return (
     <>
@@ -146,12 +150,9 @@ function PendingUpdateNotification() {
           className="text-green-500"
           aria-label="Abrir actualización pendiente"
         >
-          ¡Update Pending!
+          ¡Actualización pendiente!
         </button>
       </div>
-
-      {/* Modal de actualización */}
-      {/* {showModal && <UpdateNotification />} */}
     </>
   );
 }
