@@ -79,7 +79,6 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import { useUpdate } from "../contexts/UpdateContext";
 import { database } from "./firebaseConfig";
@@ -92,8 +91,12 @@ function UpdateNotification() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (updateAvailable) setIsVisible(true);
-  }, [updateAvailable]);
+    if (updateAvailable) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false); // Si no hay actualización disponible, cerramos el modal
+    }
+  }, [updateAvailable]); // El modal se actualizará cada vez que `updateAvailable` cambie
 
   const handleLater = () => {
     // Cierra el modal
@@ -112,8 +115,8 @@ function UpdateNotification() {
   };
 
   const handleUpdateNow = () => {
-    triggerUpdate(); // Inicia la actualización
-    setIsVisible(false); // Cierra el modal
+    // Inicia la actualización
+    triggerUpdate();
 
     // Eliminar la actualización pendiente en Firebase
     const updateRef = ref(database, "updates/pending");
@@ -123,7 +126,12 @@ function UpdateNotification() {
         setUpdateAvailable(false); // Cambiar a 'false' para que el botón de "Update Pending" no aparezca
       })
       .catch((error) => console.error("Error al eliminar de Firebase:", error));
+
+    // Cerrar el modal
+    setIsVisible(false);
   };
+
+  if (!isVisible) return null; // Si no debe ser visible, no renderizamos el modal
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-slate-800 text-white p-4 text-center shadow-lg animate-slide-up">
