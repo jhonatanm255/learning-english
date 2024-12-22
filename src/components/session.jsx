@@ -96,7 +96,7 @@ function Session() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-16 mb-8 p-4 rounded bg-white dark:bg-gray-800 transition-all ease-in-out duration-300">
+    <div className="max-w-md mx-auto mt-32 mb-8 p-4 rounded bg-white dark:bg-gray-800 transition-all ease-in-out duration-300">
       <h2 className="text-2xl font-bold mb-4 text-gray-700 dark:text-gray-200 transition-all ease-in-out duration-300">
         {isLoginMode ? "Iniciar Sesión" : "Crear Cuenta"}
       </h2>
