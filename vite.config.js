@@ -47,7 +47,6 @@
 
 
 
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
@@ -60,21 +59,19 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "autoUpdate", // Esto asegura que el Service Worker se registre automáticamente
+      registerType: "autoUpdate",
       workbox: {
-        // Cache versionado y manejo de actualizaciones
         runtimeCaching: [
           {
-            urlPattern: ({ url }) =>
-              url.origin === location.origin && url.pathname.startsWith("/"),
-            handler: "CacheFirst",
+            urlPattern: ({ request }) => request.destination === "document", // O cualquier patrón que quieras interceptar
+            handler: "NetworkFirst", // Asegúrate de usar NetworkFirst en este caso
             options: {
-              cacheName: "offline-cache",
+              networkTimeoutSeconds: 10, // Timeout en segundos
+              cacheName: "pages-cache",
               expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // Cache por 30 días
+                maxEntries: 10, // Limitar el número de entradas en el cache
+                maxAgeSeconds: 86400, // Cuánto tiempo deben permanecer las páginas en cache
               },
-              networkTimeoutSeconds: 10,
             },
           },
         ],
@@ -84,7 +81,7 @@ export default defineConfig({
         short_name: "Learning English",
         description: "Una app para el aprendizaje y la práctica del inglés",
         start_url: ".",
-        display: "standalone",
+        display: "standalone", // Esto le da a la app un aspecto de "aplicación nativa"
         background_color: "#ffffff",
         theme_color: "#ffffff",
         icons: [
