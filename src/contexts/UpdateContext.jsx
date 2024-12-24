@@ -121,6 +121,10 @@
 
 
 
+
+
+
+
 import { createContext, useContext, useState, useEffect } from "react";
 import { database } from "../components/firebaseConfig"; // Importa la configuración de Firebase
 import { ref, set, remove, get } from "firebase/database"; // Métodos de Firebase
@@ -133,17 +137,14 @@ export const UpdateProvider = ({ children }) => {
   const [pendingUpdate, setPendingUpdate] = useState(false);
 
   useEffect(() => {
+    // Revisamos si hay una actualización pendiente en Firebase
     const checkPendingUpdate = async () => {
-      try {
-        const updateRef = ref(database, "updates/pending");
-        const snapshot = await get(updateRef);
-        if (snapshot.exists()) {
-          const updateData = snapshot.val();
-          setPendingUpdate(true);
-          setNewVersion(updateData.version);
-        }
-      } catch (error) {
-        console.error("Error al verificar actualizaciones pendientes:", error);
+      const updateRef = ref(database, "updates/pending");
+      const snapshot = await get(updateRef);
+      if (snapshot.exists()) {
+        const updateData = snapshot.val();
+        setPendingUpdate(true);
+        setNewVersion(updateData.version);
       }
     };
 
@@ -151,6 +152,7 @@ export const UpdateProvider = ({ children }) => {
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then((registration) => {
+        // Detectar nuevos service workers instalados
         registration.addEventListener("updatefound", () => {
           const newWorker = registration.installing;
           newWorker.addEventListener("statechange", () => {
@@ -159,30 +161,31 @@ export const UpdateProvider = ({ children }) => {
               navigator.serviceWorker.controller
             ) {
               setUpdateAvailable(true);
-              console.log("Nueva versión disponible del Service Worker.");
+              console.log("Nueva versión del Service Worker disponible.");
             } else if (newWorker.state === "redundant") {
-              console.error("Fallo en la instalación del Service Worker.");
+              console.error("Service Worker instalación fallida (redundant).");
             }
           });
         });
       });
 
+      // Manejar mensajes del Service Worker
       navigator.serviceWorker.addEventListener("message", (event) => {
-        if (event.data?.type === "UPDATE_READY") {
+        if (event.data.type === "UPDATE_READY") {
           setUpdateAvailable(true);
           setNewVersion(event.data.newVersion);
 
+          // Guardar actualización pendiente en Firebase
           const updateRef = ref(database, "updates/pending");
           set(updateRef, {
             version: event.data.newVersion,
             status: "pending",
           })
-            .then(() => console.log("Actualización pendiente registrada."))
+            .then(() =>
+              console.log("Actualización pendiente registrada en Firebase.")
+            )
             .catch((error) =>
-              console.error(
-                "Error al registrar actualización en Firebase:",
-                error
-              )
+              console.error("Error al guardar en Firebase:", error)
             );
         }
       });
@@ -194,6 +197,7 @@ export const UpdateProvider = ({ children }) => {
       navigator.serviceWorker.controller.postMessage({ type: "SKIP_WAITING" });
     }
 
+    // Eliminar la actualización pendiente en Firebase
     const updateRef = ref(database, "updates/pending");
     remove(updateRef)
       .then(() => {
@@ -201,26 +205,33 @@ export const UpdateProvider = ({ children }) => {
         setPendingUpdate(false);
         setUpdateAvailable(false);
 
-        // Mostrar mensaje al usuario antes de reiniciar
-        Swal.fire({
-          title: "Actualizando!",
-          text: "La aplicación se reiniciará para aplicar la nueva actualización!",
-          icon: "success",
+        // Recargar la página después de activar el nuevo Service Worker
+        navigator.serviceWorker.ready.then((registration) => {
+          if (registration.waiting) {
+            registration.waiting.postMessage({ type: "SKIP_WAITING" });
+          }
+
+          registration.update().then(() => {
+            console.log("Recargando la app para aplicar la actualización...");
+             Swal.fire({
+               title: "Actualizando!",
+               text: "La aplicación se reiniciará para aplicar la nueva actualización!",
+               icon: "success",
+               timer: 1000,
+             });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          });
         });
-
-
-        // Forzar el reinicio tras un breve retraso
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500); // 1.5 segundos para que el mensaje sea visible
       })
       .catch((error) =>
         console.error("Error al eliminar actualización de Firebase:", error)
       );
   };
 
-
   const dismissUpdate = () => {
+    // Eliminar la actualización pendiente sin aplicar la actualización
     const updateRef = ref(database, "updates/pending");
     remove(updateRef)
       .then(() => {
@@ -228,16 +239,14 @@ export const UpdateProvider = ({ children }) => {
         setPendingUpdate(false);
         setUpdateAvailable(false);
       })
-      .catch((error) =>
-        console.error("Error al eliminar actualización de Firebase:", error)
-      );
+      .catch((error) => console.error("Error al eliminar de Firebase:", error));
   };
 
   return (
     <UpdateContext.Provider
       value={{
         updateAvailable,
-        triggerUpdate: applyUpdate,
+        applyUpdate,
         dismissUpdate,
         newVersion,
         pendingUpdate,
