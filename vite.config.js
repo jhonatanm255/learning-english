@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: "prompt", // PWA prompt al cargar la página
       workbox: {
         runtimeCaching: [
           {

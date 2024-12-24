@@ -140,7 +140,7 @@ function PendingUpdateNotification() {
     setUpdateDecisionMade(false); // El usuario no ha tomado una decisión
   };
 
-  if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
+  // if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
 
   return (
     <>
@@ -150,7 +150,7 @@ function PendingUpdateNotification() {
           className="text-green-500"
           aria-label="Abrir actualización pendiente"
         >
-          ¡Actualización pendiente!
+          ¡Update Pending!
         </button>
       </div>
     </>
