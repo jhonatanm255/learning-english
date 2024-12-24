@@ -200,13 +200,25 @@ export const UpdateProvider = ({ children }) => {
         console.log("Actualización pendiente eliminada de Firebase.");
         setPendingUpdate(false);
         setUpdateAvailable(false);
+
+        // Mostrar mensaje al usuario antes de reiniciar
+        Swal.fire({
+          title: "Actualizando!",
+          text: "La aplicación se reiniciará para aplicar la nueva actualización!",
+          icon: "success",
+        });
+
+
+        // Forzar el reinicio tras un breve retraso
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500); // 1.5 segundos para que el mensaje sea visible
       })
       .catch((error) =>
         console.error("Error al eliminar actualización de Firebase:", error)
       );
-
-    window.location.reload();
   };
+
 
   const dismissUpdate = () => {
     const updateRef = ref(database, "updates/pending");
