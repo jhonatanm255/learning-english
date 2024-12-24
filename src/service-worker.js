@@ -77,8 +77,6 @@
 
 
 
-
-
 const CACHE_NAME = "v2";
 const CACHE_URLS = [
   "/",
@@ -98,8 +96,8 @@ self.addEventListener("install", (event) => {
       return cache.addAll(CACHE_URLS);
     })
   );
-  // No activa automáticamente el nuevo Service Worker
-  self.skipWaiting(); // Opcional: activa directamente
+  // Forzar el "skipWaiting" para activar el nuevo Service Worker inmediatamente
+  self.skipWaiting();
 });
 
 // Activar el Service Worker y limpiar cachés antiguos
@@ -117,7 +115,7 @@ self.addEventListener("activate", (event) => {
       )
     )
   );
-  self.clients.claim(); // Asegura el control inmediato
+  self.clients.claim(); // Asegura que el nuevo Service Worker controle inmediatamente
 });
 
 // Interceptar solicitudes de red y usar el caché
@@ -151,6 +149,7 @@ self.addEventListener("message", (event) => {
 
 // Notificar a los clientes cuando haya una nueva versión disponible
 self.addEventListener("install", () => {
+  // Enviar el mensaje a todos los clientes (páginas abiertas) que hay una actualización disponible
   self.clients.matchAll().then((clients) => {
     clients.forEach((client) => {
       client.postMessage({ type: "UPDATE_AVAILABLE" });

@@ -87,7 +87,7 @@
 import React, { useEffect, useState } from "react";
 import { useUpdate } from "../contexts/UpdateContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, get } from "firebase/database"; // Cambié para usar Realtime Database
+import { getDatabase, ref, get } from "firebase/database"; // Usamos Realtime Database
 import { app } from "../components/firebaseConfig"; // Configuración de Firebase
 import UpdateNotification from "./UpdateNotification"; // Modal de actualización
 
@@ -138,9 +138,10 @@ function PendingUpdateNotification() {
   const handleCloseModal = () => {
     setShowModal(false);
     setUpdateDecisionMade(false); // El usuario no ha tomado una decisión
+    setPendingUpdate(false); // Aseguramos que el estado de la actualización pendiente se restablezca
   };
 
-  // if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
+  if (!pendingUpdate) return null; // No mostrar nada si no hay actualización pendiente
 
   return (
     <>
@@ -150,11 +151,14 @@ function PendingUpdateNotification() {
           className="text-green-500"
           aria-label="Abrir actualización pendiente"
         >
-          ¡Update Pending!
+          ¡Actualización pendiente!
         </button>
       </div>
+      {/* {showModal && <UpdateNotification />}{" "} */}
+      {/* Mostrar el modal solo si showModal es true */}
     </>
   );
 }
 
 export default PendingUpdateNotification;
+

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { database } from "../components/firebaseConfig"; // Importa la configuración de Firebase
 import { ref, set, remove, get } from "firebase/database"; // Métodos de Firebase
+import Swal from "sweetalert2"; // Importa SweetAlert2
 
 const UpdateContext = createContext();
 
@@ -82,6 +83,16 @@ export const UpdateProvider = ({ children }) => {
 
     // Recargar la página para aplicar la nueva versión
     window.location.reload();
+
+    // Mostrar alerta de que la app fue actualizada
+    setTimeout(() => {
+      Swal.fire({
+        title: "¡Actualización exitosa!",
+        text: "La nueva versión de la app ya está lista para usarse.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      });
+    }, 500); // Tiempo de espera para asegurar que la página se recargue
   };
 
   const dismissUpdate = () => {
@@ -114,9 +125,6 @@ export const UpdateProvider = ({ children }) => {
 };
 
 export const useUpdate = () => useContext(UpdateContext);
-
-
-
 
 
 
