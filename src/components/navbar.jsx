@@ -105,6 +105,15 @@ function Navbar({ isDarkMode }) {
           >
             Chatbox
           </li>
+          {pendingUpdate && (
+            <li
+              key="pending-update"
+              onClick={handlePendingUpdateClick}
+              className="text-lg text-green-500 bg-green-100 dark:text-yellow-500 dark:bg-yellow-100 py-1 px-4 rounded-lg cursor-pointer"
+            >
+              ¡Update Pending!
+            </li>
+          )}
         </ul>
       )}
       {/* MENÚ DESPLEGABLE: Visible solo en pantallas pequeñas */}
