@@ -125,7 +125,7 @@ function Bar({ appVersion, onLogout }) {
             )}
 
             {/* Mostrar notificación de actualización pendiente */}
-            <PendingUpdateNotification className="p-2"/>
+            {/* <PendingUpdateNotification className="p-2"/> */}
 
             <div className="text-gray-600 dark:text-gray-400 mt-1 px-2 text-sm">
               Versión: <strong>{__APP_VERSION__}</strong>
