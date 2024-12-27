@@ -54,7 +54,7 @@ const Translator = () => {
   return (
     <div className="p-6 max-w-4xl mx-auto mt-24 bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg transition-all duration-500 ease-in-out">
       <div className="flex justify-between">
-        <h1 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
+        <h1 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white">
           Traductor
         </h1>
         <BackButton />
@@ -63,7 +63,7 @@ const Translator = () => {
       <div className="flex flex-col md:flex-row gap-6">
         <textarea
           className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-md focus:ring focus:ring-blue-300 dark:bg-gray-700 dark:text-white transition-all duration-500 ease-in-out"
-          rows="7"
+          rows="6"
           placeholder="Introduce el texto aquí..."
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
@@ -71,7 +71,7 @@ const Translator = () => {
         />
         <textarea
           className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white transition-all duration-500 ease-in-out"
-          rows="7"
+          rows="6"
           readOnly
           placeholder={
             loading ? "Traduciendo..." : "Traducción aparecerá aquí..."

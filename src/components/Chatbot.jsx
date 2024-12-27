@@ -56,14 +56,14 @@ function Chatbot() {
   };
 
   return (
-    <div className="w-full h-full mx-auto mt-20 p-4 dark:bg-gray-800 shadow-md rounded transition-all duration-500 ease-in-out">
+    <div className="w-full h-full mx-auto mt-24 p-4 dark:bg-gray-800 shadow-md rounded-md transition-all duration-500 ease-in-out">
       <div className="flex justify-between">
         <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
           Chatbot Learning English
         </h2>
         <BackButton />
       </div>
-      <div className="chat-window h-[540px] max-h-[495px] lg:h-[315px] overflow-y-auto mb-4 p-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 transition-all duration-500 ease-in-out">
+      <div className="chat-window h-[540px] max-h-[455px] lg:h-[315px] overflow-y-auto mb-4 p-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 transition-all duration-500 ease-in-out">
         {messages.map((msg, index) => (
           <div
             key={index}
