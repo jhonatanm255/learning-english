@@ -114,7 +114,7 @@ function UpdateNotification() {
       );
 
     // Actualizar el estado global
-    setUpdateAvailable(false);
+    setUpdateAvailable(true);
   };
 
   const handleUpdateNow = () => {
