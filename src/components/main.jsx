@@ -56,7 +56,7 @@ function Main() {
           </div>
         </Link>
 
-        <Link className="w-full" to="">
+        {/* <Link className="w-full" to="">
           <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
             <i class="text-red-400 text-5xl flex justify-center py-8 bx bxs-book-add"></i>
             <div className="flex flex-col justify-center ml-8">
@@ -68,7 +68,7 @@ function Main() {
               </p>
             </div>
           </div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

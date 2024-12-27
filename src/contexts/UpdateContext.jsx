@@ -83,8 +83,7 @@ export const UpdateProvider = ({ children }) => {
       .catch((error) => console.error("Error al eliminar de Firebase:", error));
 
     // Recargar la página para aplicar la nueva versión
-    window.close();
-    window.open();
+    window.location.reload();
 
     // Mostrar alerta de que la app fue actualizada
     setTimeout(() => {
