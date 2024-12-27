@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { database } from "../components/firebaseConfig"; // Importa la configuración de Firebase
 import { ref, set, remove, get } from "firebase/database"; // Métodos de Firebase
 import Swal from "sweetalert2"; // Importa SweetAlert2
+import { BsWindowSidebar } from "react-icons/bs";
 
 const UpdateContext = createContext();
 
@@ -82,7 +83,8 @@ export const UpdateProvider = ({ children }) => {
       .catch((error) => console.error("Error al eliminar de Firebase:", error));
 
     // Recargar la página para aplicar la nueva versión
-    window.location.reload();
+    window.close();
+    window.open();
 
     // Mostrar alerta de que la app fue actualizada
     setTimeout(() => {
@@ -92,7 +94,7 @@ export const UpdateProvider = ({ children }) => {
         icon: "success",
         confirmButtonText: "Aceptar",
       });
-    }, 500); // Tiempo de espera para asegurar que la página se recargue
+    }, 1500); // Tiempo de espera para asegurar que la página se recargue
   };
 
   const dismissUpdate = () => {
