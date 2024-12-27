@@ -143,7 +143,7 @@ self.addEventListener("message", (event) => {
     console.log(
       "Service Worker: SKIP_WAITING received, activating new version"
     );
-    self.skipWaiting();
+    self.skipWaiting(); // Forzar la instalación de la nueva versión
   }
 });
 
