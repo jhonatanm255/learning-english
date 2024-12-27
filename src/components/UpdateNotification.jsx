@@ -104,6 +104,7 @@ function UpdateNotification() {
   const handleLater = () => {
     // Cierra el modal
     setIsVisible(false);
+    window.location.reload();
 
     // Guardar la actualización pendiente en Firebase
     const updateRef = ref(database, "updates/pending");
@@ -114,7 +115,7 @@ function UpdateNotification() {
       );
 
     // Actualizar el estado global
-    setUpdateAvailable(true);
+    setUpdateAvailable(false);
   };
 
   const handleUpdateNow = () => {
