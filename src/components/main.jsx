@@ -55,62 +55,6 @@ function Main() {
             </div>
           </div>
         </Link>
-
-        <Link className="w-full" to="">
-          <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-            <i class="text-red-400 text-5xl flex justify-center py-8 bx bxs-book-add"></i>
-            <div className="flex flex-col justify-center ml-8">
-              <p className="text-slate-800 dark:text-gray-200 font-semibold text-lg">
-                New Item
-              </p>
-              <p className="text-slate-500 dark:text-gray-400 text-sm">
-                Este es un item de prueba
-              </p>
-            </div>
-          </div>
-        </Link>
-
-        <Link className="w-full" to="">
-          <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-            <i class="text-red-400 text-5xl flex justify-center py-8 bx bxs-book-add"></i>
-            <div className="flex flex-col justify-center ml-8">
-              <p className="text-slate-800 dark:text-gray-200 font-semibold text-lg">
-                New Item
-              </p>
-              <p className="text-slate-500 dark:text-gray-400 text-sm">
-                Este es un item de prueba
-              </p>
-            </div>
-          </div>
-        </Link>
-
-        <Link className="w-full" to="">
-          <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-            <i class="text-red-400 text-5xl flex justify-center py-8 bx bxs-book-add"></i>
-            <div className="flex flex-col justify-center ml-8">
-              <p className="text-slate-800 dark:text-gray-200 font-semibold text-lg">
-                New Item
-              </p>
-              <p className="text-slate-500 dark:text-gray-400 text-sm">
-                Este es un item de prueba
-              </p>
-            </div>
-          </div>
-        </Link>
-
-        <Link className="w-full" to="">
-          <div className="bg-red-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
-            <i class="text-red-400 text-5xl flex justify-center py-8 bx bxs-book-add"></i>
-            <div className="flex flex-col justify-center ml-8">
-              <p className="text-slate-800 dark:text-gray-200 font-semibold text-lg">
-                New Item
-              </p>
-              <p className="text-slate-500 dark:text-gray-400 text-sm">
-                Este es un item de prueba
-              </p>
-            </div>
-          </div>
-        </Link>
       </div>
     </div>
   );
