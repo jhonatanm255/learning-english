@@ -52,7 +52,7 @@ const Translator = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto mt-24 bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg transition-all duration-500 ease-in-out">
+    <div className="p-6 max-w-full mx-auto mt-24 bg-gray-50 dark:bg-gray-800 rounded-md shadow-lg transition-all duration-500 ease-in-out">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white">
           Traductor
@@ -134,7 +134,7 @@ const Translator = () => {
           </select>
         </div>
 
-        {/* Botón de traducción debajo de los selectores */}
+        {/* Botón de traducción */}
         <button
           onClick={translateText}
           className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition-all duration-500 ease-in-out"

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { auth } from "./firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
-import PendingUpdateNotification from "./PendingUpdateNotification";
 
 function Bar({ appVersion, onLogout }) {
   const [profilePicture, setProfilePicture] = useState(null);
@@ -123,9 +122,6 @@ function Bar({ appVersion, onLogout }) {
                 Logout
               </button>
             )}
-
-            {/* Mostrar notificación de actualización pendiente */}
-            {/* <PendingUpdateNotification className="p-2"/> */}
 
             <div className="text-gray-600 dark:text-gray-400 mt-1 px-2 text-sm">
               Versión: <strong>{__APP_VERSION__}</strong>

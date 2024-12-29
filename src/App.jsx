@@ -55,7 +55,7 @@ function App() {
             <Navbar isDarkMode={isDarkMode} />{" "}
             {/* Pasamos isDarkMode como prop */}
             {/* INICIO DE SESION */}
-            <div className="flex-grow">
+            <div className="flex-grow p-2">
               <Routes>
                 {/* Rutas públicas */}
                 <Route path="/login" element={<Session />} />

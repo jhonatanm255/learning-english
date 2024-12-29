@@ -26,7 +26,7 @@ function EmailPage() {
           navigate("/login"); 
         }
       } else {
-        navigate("/login"); // Redirige al formulario de login si no está autenticado
+        navigate("/login");
       }
     });
 
@@ -35,11 +35,11 @@ function EmailPage() {
   }, [navigate]);
 
   if (loading) {
-    return <p>Cargando...</p>; // O un spinner si prefieres
+    return <p>Cargando...</p>;
   }
 
   return (
-    <div className="text-center">
+    <div className="text-start">
       {user ? <Main /> : <p>Redirigiendo...</p>}{" "}
       {/* Solo muestra el contenido si el usuario está autenticado y ha verificado su correo */}
     </div>

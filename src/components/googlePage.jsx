@@ -17,7 +17,7 @@ function GooglePage() {
         setUser(user);
         setLoading(false);
       } else {
-        navigate("/login"); // Redirige al login si el usuario no está autenticado
+        navigate("/login");
       }
     });
 
@@ -30,7 +30,7 @@ function GooglePage() {
 
     try {
       await signOut(auth);
-      navigate("/"); // Redirige a la página principal después de cerrar sesión
+      navigate("/");
     } catch (err) {
       setError("Error al cerrar sesión. Intenta nuevamente.");
     } finally {
@@ -39,7 +39,7 @@ function GooglePage() {
   };
 
   if (loading) {
-    return <p>Cargando...</p>; // O un spinner si prefieres
+    return <p>Cargando...</p>;
   }
 
   return (

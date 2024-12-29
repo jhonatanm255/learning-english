@@ -50,7 +50,7 @@ function Navbar({ isDarkMode }) {
 
   // Función para manejar el clic en "Actualización pendiente"
   const handlePendingUpdateClick = () => {
-    setUpdateAvailable(true); // Mostrar nuevamente el modal de actualización
+    setUpdateAvailable(true);
   };
 
   return (
@@ -61,8 +61,7 @@ function Navbar({ isDarkMode }) {
         src={logo2} // Cambiar el logo según el modo
         alt="logo-app"
       />
-
-      {/* Resto del contenido */}
+      
       <h1 className="text-xl absolute left-1/2 transform -translate-x-1/2 font-semibold text-slate-700 dark:text-white">
         Learning English
       </h1>
