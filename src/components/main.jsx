@@ -24,13 +24,13 @@ function Main() {
           </div>
         </Link>
 
-        {/* VOICE PRACTICE */}
+        {/* VOCABULARY */}
         <Link className="w-full" to="/voice">
           <div className="bg-green-50 dark:bg-gray-800 flex shadow-md items-center w-full h-32 p-4 cursor-pointer rounded-md transform transition-all ease-in-out duration-300">
             <i className="text-green-400 text-5xl flex justify-center py-8 bx bxs-user-voice"></i>
             <div className="flex flex-col justify-center ml-8">
               <p className="text-slate-800 dark:text-gray-200 font-semibold text-lg">
-                Pronunciación
+                Vocabulario
               </p>
               <p className="text-slate-500 dark:text-gray-400 text-sm">
                 Práctica de pronunciación de palabras en inglés utilizando
